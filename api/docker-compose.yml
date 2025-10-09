@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - MONGO_URI=${MONGO_URI}
+    depends_on:
+      - mongo
+    restart: unless-stopped
+
+  mongo:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    restart: unless-stopped
+
+volumes:
+  mongo-data:
