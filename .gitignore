@@ -8,6 +8,8 @@ logs
 .env
 .env.local
 .env.development.local
+.env.dev
+.env.prod
 
 # package files
 package-lock.json
