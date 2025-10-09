@@ -1,0 +1,35 @@
+# Development Dockerfile for API
+FROM node:20-alpine
+
+# Install development dependencies
+RUN apk add --no-cache curl
+
+# Set working directory to /app (to match docker-compose volume)
+WORKDIR /app
+
+# Copy the entire project to have access to packages/logger
+COPY . /workspace
+
+# Build logger package first
+WORKDIR /workspace/packages/logger
+RUN npm install && npm run build
+
+# Go back to /app and copy API files
+WORKDIR /app
+RUN cp -r /workspace/api/* . && \
+    cp -r /workspace/api/.* . 2>/dev/null || true
+
+# Install API dependencies
+RUN npm install
+
+# Install the logger package from workspace
+RUN npm install /workspace/packages/logger
+
+# Create logs directory
+RUN mkdir -p ./logs
+
+# Expose port and debugging port
+EXPOSE 4000 9229
+
+# Development command
+CMD ["npm", "run", "dev"]

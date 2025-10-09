@@ -95,7 +95,74 @@ This will start:
 - 🎨 **Client App** on `http://localhost:3000` 
 - 📊 **Logger Package** in watch mode
 
-## 📜 Available Scripts
+## � Docker Deployment
+
+For containerized deployment, you can use Docker Compose:
+
+### Quick Docker Start
+
+**Development Environment:**
+```bash
+# Start all services with hot reload
+npm run docker:dev
+
+# Or using the management script
+./docker-manager.sh dev:start
+```
+
+**Production Environment:**
+```bash
+# Setup environment variables
+cp .env.example .env
+# Edit .env with your production values
+
+# Start production services
+npm run docker:prod
+
+# Or using the management script
+./docker-manager.sh prod:start
+```
+
+### Docker Services
+
+| Service | Port | Description |
+|---------|------|-------------|
+| **nginx** | 80, 443 | Reverse proxy with SSL |
+| **client** | 3000 | Next.js frontend |
+| **api** | 4000 | Express.js backend |
+| **mongodb** | 27017 | MongoDB database |
+
+**Access Points:**
+- **Development:** 
+  - Client: http://localhost:3000
+  - API: http://localhost:4000
+- **Production:**
+  - Application: https://localhost (via Nginx)
+  - Health checks: http://localhost:4000/health
+
+### Docker Management Commands
+
+```bash
+# Development
+npm run docker:dev              # Start dev environment
+npm run docker:dev:stop         # Stop dev environment  
+npm run docker:dev:logs         # View dev logs
+npm run docker:dev:rebuild      # Rebuild containers
+
+# Production
+npm run docker:prod             # Start prod environment
+npm run docker:prod:stop        # Stop prod environment
+npm run docker:prod:logs        # View prod logs
+
+# Utilities
+npm run docker:status           # Show container status
+npm run docker:cleanup          # Clean up resources
+npm run docker:backup           # Create database backup
+```
+
+**For detailed Docker documentation, see [DOCKER.md](./DOCKER.md)**
+
+## �📜 Available Scripts
 
 ### Development
 ```bash
@@ -268,6 +335,7 @@ npm run test:logger      # Test Logger package
 
 ## 📚 Documentation
 
+- [Docker Deployment Guide](./DOCKER.md) - Complete Docker setup and management
 - [Logger Package Documentation](./packages/logger/README.md)
 - [Logger Usage Examples](./packages/logger/EXAMPLES.md)
 - [API Documentation](./api/README.md)
@@ -319,6 +387,54 @@ npm run build  # Rebuild logger package
 **Missing dependencies:**
 ```bash
 npm run install:all  # Reinstall all dependencies
+```
+
+### Docker Issues
+
+**Docker containers won't start:**
+```bash
+# Check Docker status
+docker --version
+docker-compose --version
+
+# View container logs
+npm run docker:dev:logs
+# or
+./docker-manager.sh dev:logs
+
+# Rebuild containers
+npm run docker:dev:rebuild
+```
+
+**Port conflicts with Docker:**
+```bash
+# Check what's using Docker ports
+lsof -i :3000 :4000 :27017 :80 :443
+
+# Stop conflicting services
+sudo systemctl stop nginx mongodb
+
+# Clean up Docker resources
+npm run docker:cleanup
+```
+
+**Database connection in Docker:**
+```bash
+# Check MongoDB container
+docker exec -it places-app-mongodb-dev mongosh
+
+# Verify container network
+docker network inspect places-dev-network
+```
+
+**Out of disk space:**
+```bash
+# Clean up Docker system
+docker system prune -af
+docker volume prune -f
+
+# Remove old images
+docker image prune -af
 ```
 
 ## 📄 License

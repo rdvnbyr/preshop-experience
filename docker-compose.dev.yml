@@ -1,0 +1,72 @@
+services:
+  # MongoDB Database for Development
+  mongodb-dev:
+    image: mongo:7.0-jammy
+    container_name: places-app-mongodb-dev
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: devpassword
+      MONGO_INITDB_DATABASE: places_app_dev
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_dev_data:/data/db
+      - ./docker/mongodb/init-mongo-dev.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    networks:
+      - places-dev-network
+
+  # API Development with Hot Reload
+  api-dev:
+    build:
+      context: .
+      dockerfile: ./api/Dockerfile.dev
+    container_name: places-app-api-dev
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      PORT: 4000
+      MONGO_URI: mongodb://admin:devpassword@mongodb-dev:27017/places_app_dev?authSource=admin
+      JWT_SECRET: dev-jwt-secret-key
+      LOG_LEVEL: debug
+    ports:
+      - "4000:4000"
+      - "9229:9229"  # Node.js debugging port
+    depends_on:
+      - mongodb-dev
+    volumes:
+      - api_dev_logs:/app/logs
+    networks:
+      - places-dev-network
+    command: npm run dev
+
+  # Client Development with Hot Reload
+  client-dev:
+    build:
+      context: .
+      dockerfile: ./client/Dockerfile.dev
+    container_name: places-app-client-dev
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      NEXT_PUBLIC_API_URL: http://localhost:4000
+      NEXT_PUBLIC_APP_ENV: development
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api-dev
+    volumes: []
+    networks:
+      - places-dev-network
+    command: npm run dev
+
+volumes:
+  mongodb_dev_data:
+    driver: local
+  api_dev_logs:
+    driver: local
+
+networks:
+  places-dev-network:
+    driver: bridge
+    name: places-dev-network

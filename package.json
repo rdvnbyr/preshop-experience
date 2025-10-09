@@ -29,7 +29,19 @@
     "test": "npm run test:logger && npm run test:api && npm run test:client",
     "test:logger": "cd packages/logger && npm test",
     "test:api": "cd api && npm test",
-    "test:client": "cd client && npm test"
+    "test:client": "cd client && npm test",
+    "docker:dev": "./docker-manager.sh dev:start",
+    "docker:dev:stop": "./docker-manager.sh dev:stop",
+    "docker:dev:logs": "./docker-manager.sh dev:logs",
+    "docker:dev:rebuild": "./docker-manager.sh dev:rebuild",
+    "docker:prod": "./docker-manager.sh prod:start",
+    "docker:prod:stop": "./docker-manager.sh prod:stop",
+    "docker:prod:logs": "./docker-manager.sh prod:logs",
+    "docker:prod:rebuild": "./docker-manager.sh prod:rebuild",
+    "docker:status": "./docker-manager.sh status",
+    "docker:cleanup": "./docker-manager.sh cleanup",
+    "docker:backup": "./docker-manager.sh backup",
+    "docker:help": "./docker-manager.sh help"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
