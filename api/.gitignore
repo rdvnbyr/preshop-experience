@@ -1,0 +1,16 @@
+node_modules
+.env
+.env.example
+DockerFile
+docker-compose.yml
+package-lock.json
+yarn.lock
+yarn-error.log
+.vscode
+
+# Logs
+logs
+*.log
+*.log.*
+# Sentry Config File
+.sentryclirc

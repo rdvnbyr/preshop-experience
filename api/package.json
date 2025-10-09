@@ -1,0 +1,35 @@
+{
+  "name": "exp-places-api",
+  "version": "1.0.0",
+  "description": "Places App API Server",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "build": "echo 'API build completed'",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org synaigy --project node-express ./logs && sentry-cli sourcemaps upload --org synaigy --project node-express ./logs"
+  },
+  "author": "Ridvan Bayir",
+  "license": "MIT",
+  "dependencies": {
+    "@exp-places-app/logger": "file:../packages/logger",
+    "@sentry/cli": "^2.56.0",
+    "@sentry/node": "^10.17.0",
+    "@sentry/profiling-node": "^10.17.0",
+    "axios": "^1.12.2",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^5.1.0",
+    "express-validator": "^7.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.0.0",
+    "winston": "^3.18.3",
+    "winston-daily-rotate-file": "^5.0.0",
+    "winston-transport": "^4.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

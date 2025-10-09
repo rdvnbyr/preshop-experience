@@ -1,0 +1,106 @@
+[{
+  "title": "Neuschwanstein Castle",
+  "image": {
+    "src": "https://cdn.pixabay.com/photo/2016/11/29/06/15/neuschwanstein-castle-1869305_1280.jpg",
+    "alt": "Neuschwanstein Castle in Bavaria",
+    "thumbnail": "https://cdn.pixabay.com/photo/2016/11/29/06/15/neuschwanstein-castle-1869305_640.jpg"
+  },
+  "longitude": 10.7498,
+  "latitude": 47.5576,
+  "summary": "Das Schloss Neuschwanstein in Bayern ist eines der bekanntesten Wahrzeichen Deutschlands. Es wurde im 19. Jahrhundert von König Ludwig II. erbaut und ist heute eine der meistbesuchten Sehenswürdigkeiten Europas.",
+  "tags": [
+    "castle",
+    "Bavaria",
+    "history",
+    "Germany",
+    "tourism"
+  ],
+  "reviews": [],
+  "createdBy": "65f9842291d886fad590cc70",
+  "averageRating": 4.8,
+  "reviewCount": 0
+},
+{
+  "title": "Brandenburg Gate",
+  "image": {
+    "src": "https://cdn.pixabay.com/photo/2016/11/29/12/54/brandenburg-gate-1867474_1280.jpg",
+    "alt": "Brandenburg Gate in Berlin",
+    "thumbnail": "https://cdn.pixabay.com/photo/2016/11/29/12/54/brandenburg-gate-1867474_640.jpg"
+  },
+  "longitude": 13.3777,
+  "latitude": 52.5163,
+  "summary": "Das Brandenburger Tor ist das bekannteste Wahrzeichen Berlins. Es symbolisiert die deutsche Einheit und zieht täglich Tausende Besucher an.",
+  "tags": [
+    "Berlin",
+    "landmark",
+    "gate",
+    "Germany"
+  ],
+  "reviews": [],
+  "createdBy": "65f9842291d886fad590cc70",
+  "averageRating": 4.6,
+  "reviewCount": 0
+},
+{
+  "title": "Zugspitze",
+  "image": {
+    "src": "https://cdn.pixabay.com/photo/2018/02/21/13/26/zugspitze-3161793_1280.jpg",
+    "alt": "Zugspitze, highest mountain in Germany",
+    "thumbnail": "https://cdn.pixabay.com/photo/2018/02/21/13/26/zugspitze-3161793_640.jpg"
+  },
+  "longitude": 10.985,
+  "latitude": 47.421,
+  "summary": "Die Zugspitze ist mit 2.962 Metern der höchste Berg Deutschlands und bietet atemberaubende Ausblicke auf die Alpen. Im Winter ein Paradies für Skifahrer.",
+  "tags": [
+    "mountain",
+    "alps",
+    "nature",
+    "ski"
+  ],
+  "reviews": [],
+"createdBy": "65f9842291d886fad590cc70",
+  "averageRating": 4.9,
+  "reviewCount": 0
+},
+{
+  "title": "Cologne Cathedral",
+  "image": {
+    "src": "https://cdn.pixabay.com/photo/2016/11/29/02/19/cologne-cathedral-1868178_1280.jpg",
+    "alt": "Cologne Cathedral at night",
+    "thumbnail": "https://cdn.pixabay.com/photo/2016/11/29/02/19/cologne-cathedral-1868178_640.jpg"
+  },
+  "longitude": 6.9583,
+  "latitude": 50.9413,
+  "summary": "Der Kölner Dom ist eine gotische Kathedrale im Herzen von Köln und zählt zu den beeindruckendsten Bauwerken Europas. UNESCO-Weltkulturerbe seit 1996.",
+  "tags": [
+    "cathedral",
+    "cologne",
+    "architecture",
+    "UNESCO"
+  ],
+  "reviews": [],
+"createdBy": "65f9842291d886fad590cc70",
+  "averageRating": 4.7,
+  "reviewCount": 0
+},
+{
+  "title": "Saxon Switzerland National Park",
+  "image": {
+    "src": "https://cdn.pixabay.com/photo/2016/11/18/16/17/bastei-bridge-1834700_1280.jpg",
+    "alt": "Bastei Bridge in Saxon Switzerland National Park",
+    "thumbnail": "https://cdn.pixabay.com/photo/2016/11/18/16/17/bastei-bridge-1834700_640.jpg"
+  },
+  "longitude": 14.066,
+  "latitude": 50.961,
+  "summary": "Der Nationalpark Sächsische Schweiz liegt in Sachsen und ist bekannt für seine markanten Sandsteinformationen und die berühmte Basteibrücke.",
+  "tags": [
+    "national park",
+    "nature",
+    "hiking",
+    "Saxony"
+  ],
+  "reviews": [],
+"createdBy": "65f9842291d886fad590cc70",
+  "averageRating": 4.8,
+  "reviewCount": 0
+}]

@@ -1,0 +1,39 @@
+{
+  "name": "exp-next-app",
+  "version": "1.0.0",
+  "description": "Monorepo for Places App - API and Client with shared logger package",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "api",
+    "client"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:api\" \"npm run dev:client\" \"npm run dev:logger\"",
+    "dev:api": "cd api && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "dev:logger": "cd packages/logger && npm run dev",
+    "build": "npm run build:logger && npm run build:api && npm run build:client",
+    "build:logger": "cd packages/logger && npm run build",
+    "build:api": "cd api && npm run build",
+    "build:client": "cd client && npm run build",
+    "start": "concurrently \"npm run start:api\" \"npm run start:client\"",
+    "start:api": "cd api && npm start",
+    "start:client": "cd client && npm start",
+    "install:all": "npm install && npm run install:packages",
+    "install:packages": "cd packages/logger && npm install && cd ../../api && npm install && cd ../client && npm install",
+    "clean": "npm run clean:logger && npm run clean:api && npm run clean:client",
+    "clean:logger": "cd packages/logger && npm run clean",
+    "clean:api": "cd api && rm -rf node_modules",
+    "clean:client": "cd client && rm -rf node_modules",
+    "test": "npm run test:logger && npm run test:api && npm run test:client",
+    "test:logger": "cd packages/logger && npm test",
+    "test:api": "cd api && npm test",
+    "test:client": "cd client && npm test"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "author": "Ridvan Bayir",
+  "license": "MIT"
+}

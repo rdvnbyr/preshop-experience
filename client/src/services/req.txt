@@ -1,0 +1,167 @@
+curl --request POST \
+  --url http://localhost:8000/store-api/product/{productId} \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' \
+  --header 'sw-access-key: 123' \
+  --header 'sw-include-seo-urls: ' \
+  --header 'sw-language-id: ' \
+  --data '{
+  "page": 0,
+  "term": "string",
+  "limit": 0,
+  "filter": [
+    {
+      "type": "contains",
+      "field": "string",
+      "value": "string"
+    }
+  ],
+  "ids": [
+    "string"
+  ],
+  "query": "string",
+  "associations": {
+    "property1": {
+      "page": 0,
+      "term": "string",
+      "limit": 0,
+      "filter": [
+        {
+          "type": "contains",
+          "field": "string",
+          "value": "string"
+        }
+      ],
+      "ids": [
+        "string"
+      ],
+      "query": "string",
+      "associations": {},
+      "post-filter": [
+        {
+          "type": "contains",
+          "field": "string",
+          "value": "string"
+        }
+      ],
+      "sort": [
+        {
+          "field": "string",
+          "order": "ASC",
+          "naturalSorting": true,
+          "type": "string"
+        }
+      ],
+      "aggregations": [
+        {
+          "name": "string",
+          "type": "avg",
+          "field": "string"
+        }
+      ],
+      "fields": [
+        "string"
+      ],
+      "grouping": [
+        "string"
+      ],
+      "total-count-mode": "none",
+      "includes": {
+        "property1": [
+          "string"
+        ],
+        "property2": [
+          "string"
+        ]
+      }
+    },
+    "property2": {
+      "page": 0,
+      "term": "string",
+      "limit": 0,
+      "filter": [
+        {
+          "type": "contains",
+          "field": "string",
+          "value": "string"
+        }
+      ],
+      "ids": [
+        "string"
+      ],
+      "query": "string",
+      "associations": {},
+      "post-filter": [
+        {
+          "type": "contains",
+          "field": "string",
+          "value": "string"
+        }
+      ],
+      "sort": [
+        {
+          "field": "string",
+          "order": "ASC",
+          "naturalSorting": true,
+          "type": "string"
+        }
+      ],
+      "aggregations": [
+        {
+          "name": "string",
+          "type": "avg",
+          "field": "string"
+        }
+      ],
+      "fields": [
+        "string"
+      ],
+      "grouping": [
+        "string"
+      ],
+      "total-count-mode": "none",
+      "includes": {
+        "property1": [
+          "string"
+        ],
+        "property2": [
+          "string"
+        ]
+      }
+    }
+  },
+  "post-filter": [
+    {
+      "type": "contains",
+      "field": "string",
+      "value": "string"
+    }
+  ],
+  "sort": [
+    {
+      "field": "string",
+      "order": "ASC",
+      "naturalSorting": true,
+      "type": "string"
+    }
+  ],
+  "aggregations": [
+    {
+      "name": "string",
+      "type": "avg",
+      "field": "string"
+    }
+  ],
+  "grouping": [
+    "string"
+  ],
+  "total-count-mode": "none",
+  "includes": {
+    "property1": [
+      "string"
+    ],
+    "property2": [
+      "string"
+    ]
+  }
+}'
