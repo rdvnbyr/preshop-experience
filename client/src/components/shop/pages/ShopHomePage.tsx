@@ -6,6 +6,7 @@ import { ShopwareProduct } from "@/types/shopware";
 import ProductCard from "../products/ProductCard";
 import ProductsLoading from "../products/ProductsLoading";
 import Button from "@/components/ui/button/Button";
+import { ShopwareAdminApiClient } from "@/services/shopware/admin-api";
 
 const ShopHomePage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -50,11 +51,21 @@ const ShopHomePage: React.FC = () => {
 
   if (error) {
     return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-red-600 mb-4">
+          <h1 className="mb-4 text-2xl font-bold text-red-600">
             Bir hata oluştu
           </h1>
+          <Button
+            variant="outline"
+            size="md"
+            onClick={() => {
+              const adminApiClient = new ShopwareAdminApiClient();
+              adminApiClient.testConnection();
+            }}
+          >
+            Testing
+          </Button>
           <p className="text-gray-600 dark:text-gray-400">
             Ürünler yüklenirken bir sorun meydana geldi. Lütfen daha sonra
             tekrar deneyin.
@@ -67,17 +78,17 @@ const ShopHomePage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Hero Section */}
-      <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
+        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="mb-4 text-4xl font-bold text-gray-900 dark:text-white">
               Best Products, Best Prices
             </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-400 mb-8">
+            <p className="mb-8 text-xl text-gray-600 dark:text-gray-400">
               Discover the most suitable ones for you among thousands of
               products
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col justify-center gap-4 sm:flex-row">
               <Button variant="primary" size="md">
                 Explore Categories
               </Button>
@@ -90,11 +101,11 @@ const ShopHomePage: React.FC = () => {
       </div>
 
       {/* Products Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
+        <div className="mb-8 flex flex-col items-start justify-between sm:flex-row sm:items-center">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+            <h2 className="mb-2 text-2xl font-bold text-gray-900 dark:text-white">
               All Products
             </h2>
             <p className="text-gray-600 dark:text-gray-400">
@@ -107,7 +118,7 @@ const ShopHomePage: React.FC = () => {
             <select
               value={sortBy}
               onChange={(e) => handleSortChange(e.target.value)}
-              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="rounded-lg border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-transparent focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
             >
               <option value="name">By Name (A-Z)</option>
               <option value="-name">By Name (Z-A)</option>
@@ -124,7 +135,7 @@ const ShopHomePage: React.FC = () => {
           <ProductsLoading />
         ) : products.length > 0 ? (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+            <div className="mb-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {products.map((product: unknown) => {
                 const prod = product as { id?: string };
                 return (
@@ -138,11 +149,11 @@ const ShopHomePage: React.FC = () => {
 
             {/* Pagination */}
             {totalPages > 1 && (
-              <div className="flex justify-center items-center space-x-2">
+              <div className="flex items-center justify-center space-x-2">
                 <button
                   onClick={() => handlePageChange(currentPage - 1)}
                   disabled={currentPage === 1}
-                  className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700"
+                  className="rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
                 >
                   Previous
                 </button>
@@ -157,10 +168,10 @@ const ShopHomePage: React.FC = () => {
                     <button
                       key={page}
                       onClick={() => handlePageChange(page)}
-                      className={`px-3 py-2 text-sm font-medium rounded-md ${
+                      className={`rounded-md px-3 py-2 text-sm font-medium ${
                         currentPage === page
-                          ? "text-blue-600 bg-blue-50 border border-blue-300 dark:bg-blue-900 dark:text-blue-300"
-                          : "text-gray-500 bg-white border border-gray-300 hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700"
+                          ? "border border-blue-300 bg-blue-50 text-blue-600 dark:bg-blue-900 dark:text-blue-300"
+                          : "border border-gray-300 bg-white text-gray-500 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
                       }`}
                     >
                       {page}
@@ -171,7 +182,7 @@ const ShopHomePage: React.FC = () => {
                 <button
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={currentPage === totalPages}
-                  className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700"
+                  className="rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
                 >
                   Next
                 </button>
@@ -179,7 +190,7 @@ const ShopHomePage: React.FC = () => {
             )}
           </>
         ) : (
-          <div className="text-center py-16">
+          <div className="py-16 text-center">
             <svg
               className="mx-auto h-12 w-12 text-gray-400"
               fill="none"
