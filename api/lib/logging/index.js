@@ -2,15 +2,15 @@ const winston = require("winston");
 const createTransports = require("./transports");
 
 const logChannels = {
-    checkout: "checkout",
-    catalog: "catalog",
-    account: "account",
-    order: "order",
-    system: "system",
-    webhook: "webhook",
-    payment: "payment",
-    shipping: "shipping",
-}
+  checkout: "checkout",
+  catalog: "catalog",
+  account: "account",
+  order: "order",
+  system: "system",
+  webhook: "webhook",
+  payment: "payment",
+  shipping: "shipping",
+};
 
 const env = process.env.NODE_ENV || "development";
 const logLevelByEnv = {
@@ -39,7 +39,7 @@ const baseFormat = winston.format.combine(
       meta && Object.keys(meta).length ? ` ${JSON.stringify(meta)}` : "";
     const channelStr = channel ? ` [${channel}]` : "";
     return `${timestamp} ${level.toUpperCase()} ${channelStr}${message}${metaStr}`;
-  })
+  }),
 );
 
 const createLogger = () => {

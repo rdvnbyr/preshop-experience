@@ -5,9 +5,11 @@ Base URL: `http://localhost:4000`
 ## Authentication Endpoints
 
 ### Register User
+
 **POST** `/api/auth/register`
 
 **Body:**
+
 ```json
 {
   "name": "John Doe",
@@ -17,6 +19,7 @@ Base URL: `http://localhost:4000`
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -31,9 +34,11 @@ Base URL: `http://localhost:4000`
 ```
 
 ### Login User
+
 **POST** `/api/auth/login`
 
 **Body:**
+
 ```json
 {
   "email": "john@example.com",
@@ -42,6 +47,7 @@ Base URL: `http://localhost:4000`
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -55,14 +61,17 @@ Base URL: `http://localhost:4000`
 ```
 
 ### Get Current User
+
 **GET** `/api/auth/me`
 
 **Headers:**
+
 ```
 Authorization: Bearer <token>
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -79,14 +88,17 @@ Authorization: Bearer <token>
 ## User Endpoints (Protected)
 
 All user endpoints require authentication. Include the JWT token in the Authorization header:
+
 ```
 Authorization: Bearer <your_token>
 ```
 
 ### Get All Users
+
 **GET** `/api/users`
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -104,9 +116,11 @@ Authorization: Bearer <your_token>
 ```
 
 ### Get Single User
+
 **GET** `/api/users/:id`
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -121,9 +135,11 @@ Authorization: Bearer <your_token>
 ```
 
 ### Update User
+
 **PUT** `/api/users/:id`
 
 **Body:**
+
 ```json
 {
   "name": "John Updated",
@@ -132,6 +148,7 @@ Authorization: Bearer <your_token>
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -146,9 +163,11 @@ Authorization: Bearer <your_token>
 ```
 
 ### Delete User
+
 **DELETE** `/api/users/:id`
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -160,6 +179,7 @@ Authorization: Bearer <your_token>
 ## Error Responses
 
 ### 400 Bad Request
+
 ```json
 {
   "success": false,
@@ -168,6 +188,7 @@ Authorization: Bearer <your_token>
 ```
 
 ### 401 Unauthorized
+
 ```json
 {
   "success": false,
@@ -176,6 +197,7 @@ Authorization: Bearer <your_token>
 ```
 
 ### 404 Not Found
+
 ```json
 {
   "success": false,
@@ -184,6 +206,7 @@ Authorization: Bearer <your_token>
 ```
 
 ### 500 Server Error
+
 ```json
 {
   "success": false,

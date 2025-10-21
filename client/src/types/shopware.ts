@@ -110,7 +110,7 @@ export interface ShopwareCalculatedPrice {
   quantity: number;
   rawTotal?: number;
   totalPrice: number;
-  taxStatus?: 'net' | 'gross';
+  taxStatus?: "net" | "gross";
   calculatedTaxes?: ShopwareCalculatedTax[];
   referencePrice?: ShopwareReferencePrice;
   listPrice?: ShopwareCartListPrice;
@@ -962,19 +962,19 @@ export interface ShopwareProductListParams {
   ids?: string[];
   query?: string;
   associations?: Record<string, ShopwareAssociation>;
-  'post-filter'?: ShopwareFilter[];
+  "post-filter"?: ShopwareFilter[];
   aggregations?: ShopwareAggregation[];
   fields?: string[];
   grouping?: string[];
-  'total-count-mode'?: 'none' | 'exact' | 'next-pages';
+  "total-count-mode"?: "none" | "exact" | "next-pages";
   includes?: Record<string, string[]>;
 }
 
 export interface ShopwareFilter {
-  type: 'contains' | 'equals' | 'range' | 'multi' | 'not' | 'prefix' | 'suffix';
+  type: "contains" | "equals" | "range" | "multi" | "not" | "prefix" | "suffix";
   field: string;
   value: string | number | boolean | string[];
-  operator?: 'and' | 'or';
+  operator?: "and" | "or";
   parameters?: Record<string, unknown>;
 }
 
@@ -986,25 +986,36 @@ export interface ShopwareAssociation {
   ids?: string[];
   query?: string;
   associations?: Record<string, ShopwareAssociation>;
-  'post-filter'?: ShopwareFilter[];
+  "post-filter"?: ShopwareFilter[];
   sort?: ShopwareSort[];
   aggregations?: ShopwareAggregation[];
   fields?: string[];
   grouping?: string[];
-  'total-count-mode'?: 'none' | 'exact' | 'next-pages';
+  "total-count-mode"?: "none" | "exact" | "next-pages";
   includes?: Record<string, string[]>;
 }
 
 export interface ShopwareSort {
   field: string;
-  order: 'ASC' | 'DESC';
+  order: "ASC" | "DESC";
   naturalSorting?: boolean;
   type?: string;
 }
 
 export interface ShopwareAggregation {
   name: string;
-  type: 'avg' | 'count' | 'max' | 'min' | 'sum' | 'stats' | 'terms' | 'filter' | 'entity' | 'histogram' | 'range';
+  type:
+    | "avg"
+    | "count"
+    | "max"
+    | "min"
+    | "sum"
+    | "stats"
+    | "terms"
+    | "filter"
+    | "entity"
+    | "histogram"
+    | "range";
   field: string;
   aggregation?: ShopwareAggregation;
 }
@@ -1042,11 +1053,11 @@ export interface ShopwareCategoryListParams {
   ids?: string[];
   query?: string;
   associations?: Record<string, ShopwareAssociation>;
-  'post-filter'?: ShopwareFilter[];
+  "post-filter"?: ShopwareFilter[];
   aggregations?: ShopwareAggregation[];
   fields?: string[];
   grouping?: string[];
-  'total-count-mode'?: 'none' | 'exact' | 'next-pages';
+  "total-count-mode"?: "none" | "exact" | "next-pages";
   includes?: Record<string, string[]>;
 }
 
@@ -1131,7 +1142,7 @@ export interface ShopwareProductListingResponse {
       max?: number;
     };
     rating?: number;
-    'shipping-free'?: boolean;
+    "shipping-free"?: boolean;
     properties?: string[];
     search?: string;
   };
@@ -1155,17 +1166,17 @@ export interface ShopwareProductListingParams {
   limit?: number;
   order?: string;
   search?: string;
-  'manufacturer[]'?: string[];
-  'min-price'?: number;
-  'max-price'?: number;
+  "manufacturer[]"?: string[];
+  "min-price"?: number;
+  "max-price"?: number;
   rating?: number;
-  'shipping-free'?: boolean;
-  'properties[]'?: string[];
+  "shipping-free"?: boolean;
+  "properties[]"?: string[];
 }
 
 // Product Detail Response
 export interface ShopwareProductDetailResponse {
-  apiAlias: 'product_detail';
+  apiAlias: "product_detail";
   product: ShopwareProduct;
   configurator: unknown[];
 }

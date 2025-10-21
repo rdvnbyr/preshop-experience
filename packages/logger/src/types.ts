@@ -1,13 +1,13 @@
 // Logger Types
 export interface LoggerConfig {
   level?: string;
-  environment?: 'development' | 'staging' | 'production';
+  environment?: "development" | "staging" | "production";
   enableFileLogging?: boolean;
   logDir?: string;
   maxFiles?: string;
   maxSize?: string;
   datePattern?: string;
-  format?: 'json' | 'simple' | 'detailed';
+  format?: "json" | "simple" | "detailed";
 }
 
 export interface LogMetadata {
@@ -20,24 +20,24 @@ export interface LogMetadata {
 
 // Log Channels
 export enum LogChannel {
-  CHECKOUT = 'checkout',
-  PRODUCT_CATALOG = 'product-catalog',
-  ACCOUNT = 'account',
-  INTERSHOP_API = 'intershop-api',
-  STORYBLOK_CMS = 'storyblok-cms',
-  SYSTEM = 'system',
-  DEFAULT = 'default'
+  CHECKOUT = "checkout",
+  PRODUCT_CATALOG = "product-catalog",
+  ACCOUNT = "account",
+  INTERSHOP_API = "intershop-api",
+  STORYBLOK_CMS = "storyblok-cms",
+  SYSTEM = "system",
+  DEFAULT = "default",
 }
 
 // Log Levels
 export enum LogLevel {
-  ERROR = 'error',
-  WARN = 'warn',
-  INFO = 'info',
-  HTTP = 'http',
-  VERBOSE = 'verbose',
-  DEBUG = 'debug',
-  SILLY = 'silly'
+  ERROR = "error",
+  WARN = "warn",
+  INFO = "info",
+  HTTP = "http",
+  VERBOSE = "verbose",
+  DEBUG = "debug",
+  SILLY = "silly",
 }
 
 // Channel Logger Interface

@@ -29,7 +29,7 @@ class SWService {
           grant_type: "client_credentials",
           client_id: this.clientId,
           client_secret: this.clientSecret,
-        }
+        },
       );
 
       this.credential = response.data;
@@ -39,7 +39,7 @@ class SWService {
       const newError = new Error(
         error.message
           ? error.message
-          : "Something went wrong while getting sw token"
+          : "Something went wrong while getting sw token",
       );
       throw newError;
     }
@@ -66,7 +66,7 @@ class SWService {
         `https://${this.domain}/api/_info/routes`,
         {
           headers: this.getAuthHeader(credential),
-        }
+        },
       );
       return response.data;
     } catch (error) {

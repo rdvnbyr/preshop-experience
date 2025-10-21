@@ -41,10 +41,14 @@
     "docker:status": "./docker-manager.sh status",
     "docker:cleanup": "./docker-manager.sh cleanup",
     "docker:backup": "./docker-manager.sh backup",
-    "docker:help": "./docker-manager.sh help"
+    "docker:help": "./docker-manager.sh help",
+    "prettier:check": "prettier --check .",
+    "prettier:format": "prettier --write ."
   },
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "prettier": "^3.6.2",
+    "prettier-plugin-tailwindcss": "^0.7.1"
   },
   "author": "Ridvan Bayir",
   "license": "MIT"

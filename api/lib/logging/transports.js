@@ -17,11 +17,7 @@ const createTransports = (env) => {
 
   const sentryTransport = new SentryTransport({ level: "error" });
 
-  return [
-    consoleTransport,
-    dailyRotateFileTransport,
-    sentryTransport,
-  ];
+  return [consoleTransport, dailyRotateFileTransport, sentryTransport];
 };
 
 module.exports = createTransports;

@@ -1,40 +1,40 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { useRegisterCustomer } from '@/hooks/useShopware';
-import InputField from '@/components/form/input/InputField';
-import Button from '@/components/ui/button/Button';
+import React, { useState } from "react";
+import Link from "next/link";
+import { useRegisterCustomer } from "@/hooks/useShopware";
+import InputField from "@/components/form/input/InputField";
+import Button from "@/components/ui/button/Button";
 
 const SignUpPage: React.FC = () => {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    street: '',
-    zipcode: '',
-    city: '',
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    street: "",
+    zipcode: "",
+    city: "",
     agreeTerms: false,
   });
 
   const registerMutation = useRegisterCustomer();
 
   const handleChange = (field: string, value: string | boolean) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (formData.password !== formData.confirmPassword) {
-      alert('Passwords do not match!');
+      alert("Passwords do not match!");
       return;
     }
-    
+
     if (!formData.agreeTerms) {
-      alert('Please accept the terms and conditions.');
+      alert("Please accept the terms and conditions.");
       return;
     }
 
@@ -50,13 +50,13 @@ const SignUpPage: React.FC = () => {
           street: formData.street,
           zipcode: formData.zipcode,
           city: formData.city,
-          countryId: 'TR', // Turkey - would need to fetch from API
+          countryId: "TR", // Turkey - would need to fetch from API
         },
       });
       // Redirect to login or account page
-      window.location.href = '/shop/account/signin';
+      window.location.href = "/shop/account/signin";
     } catch (error) {
-      console.error('Registration failed:', error);
+      console.error("Registration failed:", error);
     }
   };
 
@@ -67,8 +67,11 @@ const SignUpPage: React.FC = () => {
           Create Your Account
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
-          Already have an account?{' '}
-          <Link href="/shop/account/signin" className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400">
+          Already have an account?{" "}
+          <Link
+            href="/shop/account/signin"
+            className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400"
+          >
             Sign In
           </Link>
         </p>
@@ -79,7 +82,10 @@ const SignUpPage: React.FC = () => {
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label
+                  htmlFor="firstName"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
                   Ad
                 </label>
                 <div className="mt-1">
@@ -89,13 +95,16 @@ const SignUpPage: React.FC = () => {
                     type="text"
                     placeholder="Your First Name"
                     value={formData.firstName}
-                    onChange={(e) => handleChange('firstName', e.target.value)}
+                    onChange={(e) => handleChange("firstName", e.target.value)}
                   />
                 </div>
               </div>
 
               <div>
-                <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label
+                  htmlFor="lastName"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
                   Soyad
                 </label>
                 <div className="mt-1">
@@ -105,14 +114,17 @@ const SignUpPage: React.FC = () => {
                     type="text"
                     placeholder="Your Last Name"
                     value={formData.lastName}
-                    onChange={(e) => handleChange('lastName', e.target.value)}
+                    onChange={(e) => handleChange("lastName", e.target.value)}
                   />
                 </div>
               </div>
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              >
                 E-posta adresi
               </label>
               <div className="mt-1">
@@ -122,14 +134,17 @@ const SignUpPage: React.FC = () => {
                   type="email"
                   placeholder="ornek@email.com"
                   value={formData.email}
-                  onChange={(e) => handleChange('email', e.target.value)}
+                  onChange={(e) => handleChange("email", e.target.value)}
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
                   Password
                 </label>
                 <div className="mt-1">
@@ -139,13 +154,16 @@ const SignUpPage: React.FC = () => {
                     type="password"
                     placeholder="••••••••"
                     value={formData.password}
-                    onChange={(e) => handleChange('password', e.target.value)}
+                    onChange={(e) => handleChange("password", e.target.value)}
                   />
                 </div>
               </div>
 
               <div>
-                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label
+                  htmlFor="confirmPassword"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
                   Confirm Password
                 </label>
                 <div className="mt-1">
@@ -155,14 +173,19 @@ const SignUpPage: React.FC = () => {
                     type="password"
                     placeholder="••••••••"
                     value={formData.confirmPassword}
-                    onChange={(e) => handleChange('confirmPassword', e.target.value)}
+                    onChange={(e) =>
+                      handleChange("confirmPassword", e.target.value)
+                    }
                   />
                 </div>
               </div>
             </div>
 
             <div>
-              <label htmlFor="street" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              <label
+                htmlFor="street"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              >
                 Adres
               </label>
               <div className="mt-1">
@@ -172,14 +195,17 @@ const SignUpPage: React.FC = () => {
                   type="text"
                   placeholder="Sokak, mahalle, no"
                   value={formData.street}
-                  onChange={(e) => handleChange('street', e.target.value)}
+                  onChange={(e) => handleChange("street", e.target.value)}
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label htmlFor="zipcode" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label
+                  htmlFor="zipcode"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
                   Posta Kodu
                 </label>
                 <div className="mt-1">
@@ -189,13 +215,16 @@ const SignUpPage: React.FC = () => {
                     type="text"
                     placeholder="34000"
                     value={formData.zipcode}
-                    onChange={(e) => handleChange('zipcode', e.target.value)}
+                    onChange={(e) => handleChange("zipcode", e.target.value)}
                   />
                 </div>
               </div>
 
               <div>
-                <label htmlFor="city" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label
+                  htmlFor="city"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
                   City
                 </label>
                 <div className="mt-1">
@@ -205,7 +234,7 @@ const SignUpPage: React.FC = () => {
                     type="text"
                     placeholder="New York"
                     value={formData.city}
-                    onChange={(e) => handleChange('city', e.target.value)}
+                    onChange={(e) => handleChange("city", e.target.value)}
                   />
                 </div>
               </div>
@@ -217,16 +246,25 @@ const SignUpPage: React.FC = () => {
                 name="agree-terms"
                 type="checkbox"
                 checked={formData.agreeTerms}
-                onChange={(e) => handleChange('agreeTerms', e.target.checked)}
+                onChange={(e) => handleChange("agreeTerms", e.target.checked)}
                 className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
               />
-              <label htmlFor="agree-terms" className="ml-2 block text-sm text-gray-900 dark:text-gray-300">
-                I agree to the{' '}
-                <Link href="#" className="text-blue-600 hover:text-blue-500 dark:text-blue-400">
+              <label
+                htmlFor="agree-terms"
+                className="ml-2 block text-sm text-gray-900 dark:text-gray-300"
+              >
+                I agree to the{" "}
+                <Link
+                  href="#"
+                  className="text-blue-600 hover:text-blue-500 dark:text-blue-400"
+                >
                   Terms of Service
-                </Link>{' '}
-                and{' '}
-                <Link href="#" className="text-blue-600 hover:text-blue-500 dark:text-blue-400">
+                </Link>{" "}
+                and{" "}
+                <Link
+                  href="#"
+                  className="text-blue-600 hover:text-blue-500 dark:text-blue-400"
+                >
                   Privacy Policy
                 </Link>
               </label>
@@ -239,13 +277,16 @@ const SignUpPage: React.FC = () => {
                 className="w-full"
                 disabled={registerMutation.isPending}
               >
-                {registerMutation.isPending ? 'Creating account...' : 'Create Account'}
+                {registerMutation.isPending
+                  ? "Creating account..."
+                  : "Create Account"}
               </Button>
             </div>
 
             {registerMutation.error && (
               <div className="text-red-600 dark:text-red-400 text-sm text-center">
-                An error occurred while creating your account. Please check your information.
+                An error occurred while creating your account. Please check your
+                information.
               </div>
             )}
           </form>

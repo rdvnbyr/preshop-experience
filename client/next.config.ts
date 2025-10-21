@@ -2,14 +2,14 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
-  output: 'standalone',
+  output: "standalone",
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'devooby.com',
-        port: '',
-        pathname: '/media/**',
+        protocol: "https",
+        hostname: "devooby.com",
+        port: "",
+        pathname: "/media/**",
       },
     ],
   },

@@ -1,12 +1,12 @@
 // Logger integration for API
-const { 
+const {
   checkoutLogger,
   productCatalogLogger,
   accountLogger,
   intershopApiLogger,
   storyblokCmsLogger,
   systemLogger,
-  LogChannel
+  LogChannel,
 } = require("@exp-places-app/logger");
 
 // Export channel loggers for backwards compatibility
@@ -37,5 +37,5 @@ module.exports = {
   accountLogger: accountLogger.get(),
   intershopApiLogger: intershopApiLogger.get(),
   storyblokCmsLogger: storyblokCmsLogger.get(),
-  systemLogger: systemLogger.get()
+  systemLogger: systemLogger.get(),
 };

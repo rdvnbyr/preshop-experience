@@ -27,4 +27,3 @@ exports.installConsoleShim = () => {
     console.error = original.error;
   };
 };
-

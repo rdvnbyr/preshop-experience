@@ -1,4 +1,4 @@
-import { createAPIClient } from '@shopware/api-client';
+import { createAPIClient } from "@shopware/api-client";
 
 // Create API client instance
 export const swApiClient = createAPIClient({
@@ -14,7 +14,6 @@ export type ApiClient = typeof swApiClient;
  * Handles errors and provides easy-to-use methods
  */
 export class SwApiClientHelper {
-  
   /**
    * Get products with basic filtering
    */
@@ -40,13 +39,13 @@ export class SwApiClientHelper {
         body.term = params.search;
       }
 
-      const response = await swApiClient.invoke('readProduct post /product', {
-        body
+      const response = await swApiClient.invoke("readProduct post /product", {
+        body,
       });
-      
+
       return response;
     } catch (error) {
-      console.error('Error fetching products:', error);
+      console.error("Error fetching products:", error);
       throw error;
     }
   }
@@ -56,7 +55,7 @@ export class SwApiClientHelper {
    */
   static async searchProducts(searchTerm: string, limit: number = 20) {
     try {
-      const response = await swApiClient.invoke('searchPage post /search', {
+      const response = await swApiClient.invoke("searchPage post /search", {
         body: {
           search: searchTerm,
           limit,
@@ -64,14 +63,14 @@ export class SwApiClientHelper {
             media: {},
             manufacturer: {},
             cover: {},
-            categories: {}
-          }
-        }
+            categories: {},
+          },
+        },
       });
-      
+
       return response;
     } catch (error) {
-      console.error('Error searching products:', error);
+      console.error("Error searching products:", error);
       throw error;
     }
   }
@@ -81,11 +80,9 @@ export class SwApiClientHelper {
    */
   static async getProduct(productId: string) {
     try {
-      const response = await swApiClient.invoke('readProduct post /product', {
+      const response = await swApiClient.invoke("readProduct post /product", {
         body: {
-          filter: [
-            { type: 'equals', field: 'id', value: productId }
-          ],
+          filter: [{ type: "equals", field: "id", value: productId }],
           associations: {
             media: {},
             manufacturer: {},
@@ -94,14 +91,14 @@ export class SwApiClientHelper {
             tax: {},
             unit: {},
             crossSellings: {},
-            productReviews: {}
-          }
-        }
+            productReviews: {},
+          },
+        },
       });
-      
+
       return response;
     } catch (error) {
-      console.error('Error fetching product:', error);
+      console.error("Error fetching product:", error);
       throw error;
     }
   }
@@ -111,10 +108,10 @@ export class SwApiClientHelper {
    */
   static async getCart() {
     try {
-      const response = await swApiClient.invoke('readCart get /checkout/cart');
+      const response = await swApiClient.invoke("readCart get /checkout/cart");
       return response;
     } catch (error) {
-      console.error('Error fetching cart:', error);
+      console.error("Error fetching cart:", error);
       throw error;
     }
   }
@@ -124,22 +121,25 @@ export class SwApiClientHelper {
    */
   static async addToCart(productId: string, quantity: number = 1) {
     try {
-      const response = await swApiClient.invoke('addLineItem post /checkout/cart/line-item', {
-        body: {
-          items: [
-            {
-              id: productId, // Use productId as id
-              type: 'product',
-              referencedId: productId,
-              quantity
-            }
-          ]
-        }
-      });
-      
+      const response = await swApiClient.invoke(
+        "addLineItem post /checkout/cart/line-item",
+        {
+          body: {
+            items: [
+              {
+                id: productId, // Use productId as id
+                type: "product",
+                referencedId: productId,
+                quantity,
+              },
+            ],
+          },
+        },
+      );
+
       return response;
     } catch (error) {
-      console.error('Error adding to cart:', error);
+      console.error("Error adding to cart:", error);
       throw error;
     }
   }
@@ -149,16 +149,19 @@ export class SwApiClientHelper {
    */
   static async loginCustomer(username: string, password: string) {
     try {
-      const response = await swApiClient.invoke('loginCustomer post /account/login', {
-        body: {
-          username,
-          password
-        }
-      });
-      
+      const response = await swApiClient.invoke(
+        "loginCustomer post /account/login",
+        {
+          body: {
+            username,
+            password,
+          },
+        },
+      );
+
       return response;
     } catch (error) {
-      console.error('Error logging in:', error);
+      console.error("Error logging in:", error);
       throw error;
     }
   }
@@ -168,10 +171,12 @@ export class SwApiClientHelper {
    */
   static async logoutCustomer() {
     try {
-      const response = await swApiClient.invoke('logoutCustomer post /account/logout');
+      const response = await swApiClient.invoke(
+        "logoutCustomer post /account/logout",
+      );
       return response;
     } catch (error) {
-      console.error('Error logging out:', error);
+      console.error("Error logging out:", error);
       throw error;
     }
   }
@@ -181,10 +186,12 @@ export class SwApiClientHelper {
    */
   static async getCustomer() {
     try {
-      const response = await swApiClient.invoke('readCustomer post /account/customer');
+      const response = await swApiClient.invoke(
+        "readCustomer post /account/customer",
+      );
       return response;
     } catch (error) {
-      console.error('Error fetching customer:', error);
+      console.error("Error fetching customer:", error);
       throw error;
     }
   }
@@ -194,15 +201,18 @@ export class SwApiClientHelper {
    */
   static async createOrder(customerComment?: string) {
     try {
-      const response = await swApiClient.invoke('createOrder post /checkout/order', {
-        body: {
-          customerComment: customerComment || ''
-        }
-      });
-      
+      const response = await swApiClient.invoke(
+        "createOrder post /checkout/order",
+        {
+          body: {
+            customerComment: customerComment || "",
+          },
+        },
+      );
+
       return response;
     } catch (error) {
-      console.error('Error creating order:', error);
+      console.error("Error creating order:", error);
       throw error;
     }
   }
@@ -212,21 +222,21 @@ export class SwApiClientHelper {
    */
   static async getOrders() {
     try {
-      const response = await swApiClient.invoke('readOrder post /order', {
+      const response = await swApiClient.invoke("readOrder post /order", {
         body: {
           limit: 10,
           associations: {
             lineItems: {},
             addresses: {},
             deliveries: {},
-            transactions: {}
-          }
-        }
+            transactions: {},
+          },
+        },
       });
-      
+
       return response;
     } catch (error) {
-      console.error('Error fetching orders:', error);
+      console.error("Error fetching orders:", error);
       throw error;
     }
   }
@@ -236,17 +246,15 @@ export class SwApiClientHelper {
    */
   static async getCountries() {
     try {
-      const response = await swApiClient.invoke('readCountry post /country', {
+      const response = await swApiClient.invoke("readCountry post /country", {
         body: {
-          filter: [
-            { type: 'equals', field: 'active', value: true }
-          ]
-        }
+          filter: [{ type: "equals", field: "active", value: true }],
+        },
       });
-      
+
       return response;
     } catch (error) {
-      console.error('Error fetching countries:', error);
+      console.error("Error fetching countries:", error);
       throw error;
     }
   }
@@ -256,13 +264,16 @@ export class SwApiClientHelper {
    */
   static async getSalutations() {
     try {
-      const response = await swApiClient.invoke('readSalutation post /salutation', {
-        body: {}
-      });
-      
+      const response = await swApiClient.invoke(
+        "readSalutation post /salutation",
+        {
+          body: {},
+        },
+      );
+
       return response;
     } catch (error) {
-      console.error('Error fetching salutations:', error);
+      console.error("Error fetching salutations:", error);
       throw error;
     }
   }

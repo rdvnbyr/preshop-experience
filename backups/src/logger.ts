@@ -1,6 +1,12 @@
 import winston from "winston";
-import { TransportManager } from './transports';
-import { ChannelLogger, LogChannel, LogContext, LoggerConfig, LogLevel } from "./types";
+import { TransportManager } from "./transports";
+import {
+  ChannelLogger,
+  LogChannel,
+  LogContext,
+  LoggerConfig,
+  LogLevel,
+} from "./types";
 
 export class ChannelLoggerImpl implements ChannelLogger {
   private logger: winston.Logger;
@@ -16,7 +22,10 @@ export class ChannelLoggerImpl implements ChannelLogger {
     const config = WinstonLogger.getInstance().getConfig();
 
     // TransportManager'dan channel-specific transports al
-    const channelTransports = TransportManager.createChannelTransports(config, channel);
+    const channelTransports = TransportManager.createChannelTransports(
+      config,
+      channel,
+    );
 
     // Yeni winston logger oluştur
     return winston.createLogger({
@@ -27,10 +36,13 @@ export class ChannelLoggerImpl implements ChannelLogger {
     });
   }
 
-  private formatMessage(message: string, meta?: LogContext): [string, LogContext] {
+  private formatMessage(
+    message: string,
+    meta?: LogContext,
+  ): [string, LogContext] {
     const enrichedMeta: LogContext = {
       ...meta,
-      channel: this.channel
+      channel: this.channel,
     };
 
     return [message, enrichedMeta];
@@ -117,23 +129,32 @@ export class WinstonLogger {
       format: winston.format.combine(
         winston.format.timestamp(),
         winston.format.errors({ stack: true }),
-        winston.format.metadata({ fillExcept: ["message", "level", "timestamp"] }),
+        winston.format.metadata({
+          fillExcept: ["message", "level", "timestamp"],
+        }),
       ),
     });
 
     // Handle uncaught exceptions and unhandled rejections
     this.winstonLogger.exceptions.handle(
-      new winston.transports.File({ filename: `${this.config.logDir}/exceptions.log` }),
+      new winston.transports.File({
+        filename: `${this.config.logDir}/exceptions.log`,
+      }),
     );
 
     this.winstonLogger.rejections.handle(
-      new winston.transports.File({ filename: `${this.config.logDir}/rejections.log` }),
+      new winston.transports.File({
+        filename: `${this.config.logDir}/rejections.log`,
+      }),
     );
   }
 
   private initializeChannels(): void {
     Object.values(LogChannel).forEach((channel) => {
-      this.channels.set(channel, new ChannelLoggerImpl(this.winstonLogger, channel));
+      this.channels.set(
+        channel,
+        new ChannelLoggerImpl(this.winstonLogger, channel),
+      );
     });
   }
 

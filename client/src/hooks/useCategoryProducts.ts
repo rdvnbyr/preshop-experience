@@ -1,15 +1,21 @@
-import { useQuery } from '@tanstack/react-query';
-import shopwareApi from '@/services/shopware';
-import { ShopwareProductListingResponse, ShopwareProductListingParams } from '@/types/shopware';
+import { useQuery } from "@tanstack/react-query";
+import shopwareApi from "@/services/shopware";
+import {
+  ShopwareProductListingResponse,
+  ShopwareProductListingParams,
+} from "@/types/shopware";
 
 export const useCategoryProducts = (
   categoryId: string,
-  params: ShopwareProductListingParams = {}
+  params: ShopwareProductListingParams = {},
 ) => {
   return useQuery<ShopwareProductListingResponse>({
-    queryKey: ['categoryProducts', categoryId, params],
+    queryKey: ["categoryProducts", categoryId, params],
     queryFn: async () => {
-      const response = await shopwareApi.getCategoryProducts(categoryId, params);
+      const response = await shopwareApi.getCategoryProducts(
+        categoryId,
+        params,
+      );
       return response;
     },
     enabled: !!categoryId,

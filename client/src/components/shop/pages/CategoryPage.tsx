@@ -1,32 +1,36 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { useCategory, useCategoryProducts } from '@/hooks/useShopware';
-import ProductCard from '../products/ProductCard';
-import ProductsLoading from '../products/ProductsLoading';
-import Button from '@/components/ui/button/Button';
+import React, { useState } from "react";
+import { useCategory, useCategoryProducts } from "@/hooks/useShopware";
+import ProductCard from "../products/ProductCard";
+import ProductsLoading from "../products/ProductsLoading";
+import Button from "@/components/ui/button/Button";
 
 interface CategoryPageProps {
   categorySlug: string;
 }
 
 const CategoryPage: React.FC<CategoryPageProps> = ({ categorySlug }) => {
-  const [sortBy, setSortBy] = useState<string>('name');
+  const [sortBy, setSortBy] = useState<string>("name");
   const [limit, setLimit] = useState<number>(12);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   // Fetch category
-  const { data: category, isLoading: categoryLoading, error: categoryError } = useCategory(categorySlug);
+  const {
+    data: category,
+    isLoading: categoryLoading,
+    error: categoryError,
+  } = useCategory(categorySlug);
 
   // Fetch products for this category
-  const { 
-    data: productsData, 
-    isLoading: productsLoading, 
-    error: productsError 
+  const {
+    data: productsData,
+    isLoading: productsLoading,
+    error: productsError,
   } = useCategoryProducts(categorySlug, {
     page: currentPage,
     limit,
-    order: sortBy
+    order: sortBy,
   });
 
   const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -41,7 +45,7 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ categorySlug }) => {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   if (categoryLoading) {
@@ -73,7 +77,9 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ categorySlug }) => {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Category Not Found</h1>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+            Category Not Found
+          </h1>
           <p className="text-gray-600 dark:text-gray-400">
             The requested category could not be found.
           </p>
@@ -101,7 +107,10 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ categorySlug }) => {
         <div className="flex flex-col sm:flex-row gap-4">
           {/* Sort By */}
           <div className="flex items-center gap-2">
-            <label htmlFor="sort" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+            <label
+              htmlFor="sort"
+              className="text-sm font-medium text-gray-700 dark:text-gray-300"
+            >
               Sort by:
             </label>
             <select
@@ -121,7 +130,10 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ categorySlug }) => {
 
           {/* Items per page */}
           <div className="flex items-center gap-2">
-            <label htmlFor="limit" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+            <label
+              htmlFor="limit"
+              className="text-sm font-medium text-gray-700 dark:text-gray-300"
+            >
               Show:
             </label>
             <select
@@ -175,9 +187,11 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ categorySlug }) => {
           {productsData?.total && productsData.total > limit && (
             <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
               <div className="text-sm text-gray-600 dark:text-gray-400">
-                Showing {((currentPage - 1) * limit) + 1} to {Math.min(currentPage * limit, productsData.total)} of {productsData.total} results
+                Showing {(currentPage - 1) * limit + 1} to{" "}
+                {Math.min(currentPage * limit, productsData.total)} of{" "}
+                {productsData.total} results
               </div>
-              
+
               <div className="flex items-center gap-2">
                 {/* Previous Button */}
                 <Button
@@ -192,11 +206,16 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ categorySlug }) => {
                 {/* Page Numbers */}
                 <div className="flex items-center gap-1">
                   {Array.from(
-                    { length: Math.min(5, Math.ceil(productsData.total / limit)) },
+                    {
+                      length: Math.min(
+                        5,
+                        Math.ceil(productsData.total / limit),
+                      ),
+                    },
                     (_, index) => {
                       const totalPages = Math.ceil(productsData.total / limit);
                       let pageNumber;
-                      
+
                       if (totalPages <= 5) {
                         pageNumber = index + 1;
                       } else if (currentPage <= 3) {
@@ -211,21 +230,25 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ categorySlug }) => {
                         <Button
                           key={pageNumber}
                           onClick={() => handlePageChange(pageNumber)}
-                          variant={currentPage === pageNumber ? 'primary' : 'outline'}
+                          variant={
+                            currentPage === pageNumber ? "primary" : "outline"
+                          }
                           size="sm"
                           className="min-w-[40px]"
                         >
                           {pageNumber}
                         </Button>
                       );
-                    }
+                    },
                   )}
                 </div>
 
                 {/* Next Button */}
                 <Button
                   onClick={() => handlePageChange(currentPage + 1)}
-                  disabled={currentPage >= Math.ceil(productsData.total / limit)}
+                  disabled={
+                    currentPage >= Math.ceil(productsData.total / limit)
+                  }
                   variant="outline"
                   size="sm"
                 >

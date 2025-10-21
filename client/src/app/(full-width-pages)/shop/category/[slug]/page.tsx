@@ -1,4 +1,4 @@
-import CategoryPage from '@/components/shop/pages/CategoryPage';
+import CategoryPage from "@/components/shop/pages/CategoryPage";
 
 interface CategoryPageProps {
   params: {

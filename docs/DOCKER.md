@@ -14,16 +14,19 @@ This guide covers how to run the Places App using Docker and Docker Compose.
 ### Development Environment
 
 1. **Start development services:**
+
 ```bash
 ./docker-manager.sh dev:start
 ```
 
 2. **Access services:**
+
 - **Client:** http://localhost:3000
-- **API:** http://localhost:4000  
+- **API:** http://localhost:4000
 - **MongoDB:** localhost:27017
 
 3. **Stop services:**
+
 ```bash
 ./docker-manager.sh dev:stop
 ```
@@ -31,30 +34,33 @@ This guide covers how to run the Places App using Docker and Docker Compose.
 ### Production Environment
 
 1. **Setup environment:**
+
 ```bash
 cp .env.example .env
 # Edit .env with your production values
 ```
 
 2. **Start production services:**
+
 ```bash
 ./docker-manager.sh prod:start
 ```
 
 3. **Access services:**
+
 - **Application:** https://localhost (via Nginx)
 - **Direct Client:** http://localhost:3000
 - **Direct API:** http://localhost:4000
 
 ## 📊 Services Overview
 
-| Service | Port | Description |
-|---------|------|-------------|
-| **nginx** | 80, 443 | Reverse proxy with SSL |
-| **client** | 3000 | Next.js frontend |
-| **api** | 4000 | Express.js backend |
-| **mongodb** | 27017 | MongoDB database |
-| **logger** | - | Shared logging package |
+| Service     | Port    | Description            |
+| ----------- | ------- | ---------------------- |
+| **nginx**   | 80, 443 | Reverse proxy with SSL |
+| **client**  | 3000    | Next.js frontend       |
+| **api**     | 4000    | Express.js backend     |
+| **mongodb** | 27017   | MongoDB database       |
+| **logger**  | -       | Shared logging package |
 
 ## 🛠️ Management Scripts
 
@@ -106,6 +112,7 @@ npm run docker:backup           # Create backup
 ### Environment Variables
 
 **Development (.env.dev):**
+
 ```env
 NODE_ENV=development
 MONGO_ROOT_USER=admin
@@ -115,6 +122,7 @@ LOG_LEVEL=debug
 ```
 
 **Production (.env):**
+
 ```env
 NODE_ENV=production
 MONGO_ROOT_USER=admin
@@ -132,17 +140,20 @@ NEXT_PUBLIC_API_URL=https://yourdomain.com
 ### Container Configurations
 
 **API Container:**
+
 - Multi-stage build with logger package
 - Health checks enabled
 - Log volume mounting
 - Security hardening
 
 **Client Container:**
+
 - Next.js standalone build
 - Optimized for production
 - Health checks via API endpoint
 
 **MongoDB Container:**
+
 - Persistent data volumes
 - Initialization scripts
 - Authentication configured
@@ -175,6 +186,7 @@ exp-next/
 ### SSL Certificate Setup
 
 1. **Generate self-signed certificate (development):**
+
 ```bash
 mkdir -p docker/nginx/ssl
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
@@ -183,6 +195,7 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 ```
 
 2. **Use Let's Encrypt (production):**
+
 ```bash
 # Install certbot and generate certificates
 # Copy certificates to docker/nginx/ssl/
@@ -193,18 +206,21 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 ### Health Checks
 
 All services include health checks:
+
 - **API:** `/health` endpoint
-- **Client:** `/api/health` endpoint  
+- **Client:** `/api/health` endpoint
 - **MongoDB:** Connection ping
 
 ### Log Management
 
 **Centralized logging:**
+
 - API logs: `/app/logs/` volume
 - MongoDB logs: Docker logs
 - Nginx logs: Docker logs
 
 **Log viewing:**
+
 ```bash
 # All logs
 docker-compose logs -f
@@ -221,11 +237,13 @@ docker-compose logs -f --tail=100
 ### Backups
 
 **Automatic backup:**
+
 ```bash
 ./docker-manager.sh backup
 ```
 
 **Manual backup with MongoDB tools:**
+
 ```bash
 docker exec places-app-mongodb mongodump \
   --archive=/tmp/backup.archive --gzip
@@ -235,11 +253,13 @@ docker cp places-app-mongodb:/tmp/backup.archive ./backups/
 ### Restore
 
 **From backup file:**
+
 ```bash
 ./docker-manager.sh restore backup_20231009_143022.archive
 ```
 
 **Manual restore:**
+
 ```bash
 docker cp ./backups/backup.archive places-app-mongodb:/tmp/
 docker exec places-app-mongodb mongorestore \
@@ -251,6 +271,7 @@ docker exec places-app-mongodb mongorestore \
 ### Common Issues
 
 **Port conflicts:**
+
 ```bash
 # Check what's using the port
 lsof -i :3000
@@ -263,6 +284,7 @@ sudo systemctl stop mongod
 ```
 
 **Container won't start:**
+
 ```bash
 # Check logs
 docker-compose logs service-name
@@ -275,6 +297,7 @@ docker-compose build --no-cache service-name
 ```
 
 **Database connection issues:**
+
 ```bash
 # Check MongoDB container
 docker exec -it places-app-mongodb mongosh
@@ -285,6 +308,7 @@ docker network inspect places-network
 ```
 
 **Out of disk space:**
+
 ```bash
 # Clean up Docker resources
 ./docker-manager.sh cleanup
@@ -299,16 +323,18 @@ docker image prune -a
 ### Performance Optimization
 
 **Resource limits:**
+
 ```yaml
 # Add to docker-compose.yml services
 deploy:
   resources:
     limits:
       memory: 512M
-      cpus: '0.5'
+      cpus: "0.5"
 ```
 
 **Build optimization:**
+
 ```bash
 # Use BuildKit for faster builds
 export DOCKER_BUILDKIT=1
@@ -320,12 +346,14 @@ docker-compose build
 ### Staging Deployment
 
 1. **Setup staging environment:**
+
 ```bash
 cp .env.example .env.staging
 # Configure staging values
 ```
 
 2. **Deploy with custom environment:**
+
 ```bash
 docker-compose --env-file .env.staging up -d
 ```
@@ -333,6 +361,7 @@ docker-compose --env-file .env.staging up -d
 ### Production Deployment
 
 1. **Prepare production server:**
+
 ```bash
 # Install Docker & Docker Compose
 # Clone repository
@@ -340,17 +369,20 @@ docker-compose --env-file .env.staging up -d
 ```
 
 2. **Deploy:**
+
 ```bash
 ./docker-manager.sh prod:start
 ```
 
 3. **Setup SSL certificates:**
+
 ```bash
 # Configure real SSL certificates
 # Update nginx configuration
 ```
 
 4. **Setup monitoring:**
+
 ```bash
 # Configure log shipping
 # Setup health check monitoring
@@ -367,7 +399,7 @@ services:
   api:
     deploy:
       replicas: 3
-  
+
   client:
     deploy:
       replicas: 2
@@ -376,6 +408,7 @@ services:
 ### Load Balancing
 
 Update Nginx configuration for multiple API instances:
+
 ```nginx
 upstream api_backend {
     server api_1:4000;

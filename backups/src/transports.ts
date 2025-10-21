@@ -3,9 +3,10 @@ import DailyRotateFile from "winston-daily-rotate-file";
 import { LoggerConfig, LogLevel } from "./types";
 
 export class TransportManager {
-
   // Static method to create console transport
-  private static createConsoleTransport(config: LoggerConfig): winston.transports.ConsoleTransportInstance {
+  private static createConsoleTransport(
+    config: LoggerConfig,
+  ): winston.transports.ConsoleTransportInstance {
     const format = this.getConsoleFormat(config);
 
     return new winston.transports.Console({
@@ -35,7 +36,9 @@ export class TransportManager {
     });
   }
 
-  private static createErrorFileTransport(config: LoggerConfig): DailyRotateFile {
+  private static createErrorFileTransport(
+    config: LoggerConfig,
+  ): DailyRotateFile {
     const logDir = config.logDir || "./logs";
 
     return new DailyRotateFile({
@@ -51,12 +54,14 @@ export class TransportManager {
     });
   }
 
-
   //---------- CHANNEL LOGGER METHODS ----------//
   /**
    * Create transports for a specific channel
    */
-  public static createChannelTransports(config: LoggerConfig, channel: string): Array<winston.transport> {
+  public static createChannelTransports(
+    config: LoggerConfig,
+    channel: string,
+  ): Array<winston.transport> {
     const transports: Array<winston.transport> = [];
 
     // Console transport (always active)
@@ -74,7 +79,10 @@ export class TransportManager {
   /**
    * Channel-specific file transport (all levels except error)
    */
-  private static createChannelFileTransport(config: LoggerConfig, channel: string): DailyRotateFile {
+  private static createChannelFileTransport(
+    config: LoggerConfig,
+    channel: string,
+  ): DailyRotateFile {
     const logDir = config.logDir || "./logs";
     const format = this.getFileFormat(config);
 
@@ -94,7 +102,10 @@ export class TransportManager {
   /**
    * Channel-specific error file transport (only error level)
    */
-  private static createChannelErrorFileTransport(config: LoggerConfig, channel: string): DailyRotateFile {
+  private static createChannelErrorFileTransport(
+    config: LoggerConfig,
+    channel: string,
+  ): DailyRotateFile {
     const logDir = config.logDir || "./logs";
 
     return new DailyRotateFile({
@@ -110,8 +121,9 @@ export class TransportManager {
     });
   }
 
-
-  private static getConsoleFormat(config: LoggerConfig): winston.Logform.Format {
+  private static getConsoleFormat(
+    config: LoggerConfig,
+  ): winston.Logform.Format {
     const isDevelopment = config.environment === "development";
 
     if (isDevelopment) {
@@ -119,11 +131,15 @@ export class TransportManager {
         winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
         winston.format.errors({ stack: true }),
         winston.format.colorize({ all: true }),
-        winston.format.printf(({ timestamp, level, message, channel, ...meta }: any) => {
-          const metaStr = Object.keys(meta).length ? ` ${JSON.stringify(meta)}` : "";
-          const channelStr = channel ? `[${channel}]` : "";
-          return `${timestamp} ${level} ${channelStr}: ${message}${metaStr}`;
-        }),
+        winston.format.printf(
+          ({ timestamp, level, message, channel, ...meta }: any) => {
+            const metaStr = Object.keys(meta).length
+              ? ` ${JSON.stringify(meta)}`
+              : "";
+            const channelStr = channel ? `[${channel}]` : "";
+            return `${timestamp} ${level} ${channelStr}: ${message}${metaStr}`;
+          },
+        ),
       );
     }
 
@@ -144,40 +160,47 @@ export class TransportManager {
     const baseFormat = winston.format.combine(
       winston.format.timestamp(),
       winston.format.errors({ stack: true }),
-      winston.format.metadata({ fillExcept: ["message", "level", "timestamp"] })
+      winston.format.metadata({
+        fillExcept: ["message", "level", "timestamp"],
+      }),
     );
 
     if (isProduction) {
       // Production: Human-readable string format (easier for ops team)
       return winston.format.combine(
         baseFormat,
-        winston.format.printf(({ timestamp, level, message, metadata, ...rest }: any) => {
-          const meta = metadata || rest;
-          const channelStr = meta?.channel ? `[${meta.channel}]` : "";
+        winston.format.printf(
+          ({ timestamp, level, message, metadata, ...rest }: any) => {
+            const meta = metadata || rest;
+            const channelStr = meta?.channel ? `[${meta.channel}]` : "";
 
-          // Delete channel from meta to avoid duplication
-          const cleanMeta = { ...meta };
-          if (cleanMeta.channel) delete cleanMeta.channel;
+            // Delete channel from meta to avoid duplication
+            const cleanMeta = { ...meta };
+            if (cleanMeta.channel) delete cleanMeta.channel;
 
-          const metaStr = Object.keys(cleanMeta).length ? ` | ${JSON.stringify(cleanMeta)}` : "";
-          return `${timestamp} ${level.toUpperCase()} ${channelStr}: ${message}${metaStr}`;
-        })
+            const metaStr = Object.keys(cleanMeta).length
+              ? ` | ${JSON.stringify(cleanMeta)}`
+              : "";
+            return `${timestamp} ${level.toUpperCase()} ${channelStr}: ${message}${metaStr}`;
+          },
+        ),
       );
     } else {
       // Development/Staging: Structured JSON format (better for debugging)
-      return winston.format.combine(
-        baseFormat,
-        winston.format.json()
-      );
+      return winston.format.combine(baseFormat, winston.format.json());
     }
   }
 
   private static getFilename(logDir: string, channel?: string): string {
-    return channel ? `${logDir}/%DATE%-${channel}.log` : `${logDir}/%DATE%-combined.log`;
+    return channel
+      ? `${logDir}/%DATE%-${channel}.log`
+      : `${logDir}/%DATE%-combined.log`;
   }
 
   // Main method to create all transports based on config
-  public static createTransports(config: LoggerConfig): Array<winston.transport> {
+  public static createTransports(
+    config: LoggerConfig,
+  ): Array<winston.transport> {
     const transports: Array<winston.transport> = [];
 
     // Console Transport (immer aktiv)

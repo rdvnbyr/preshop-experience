@@ -1,5 +1,5 @@
-import { WinstonLogger } from './logger';
-import { ConsoleShim, LogChannel } from './types';
+import { WinstonLogger } from "./logger";
+import { ConsoleShim, LogChannel } from "./types";
 
 /**
  * Console Shim - Drop-in replacement für console.log/warn/error
@@ -9,7 +9,10 @@ export class ConsoleShimImpl implements ConsoleShim {
   private logger: WinstonLogger;
   private defaultChannel: LogChannel;
 
-  constructor(logger: WinstonLogger, defaultChannel: LogChannel = LogChannel.SYSTEM) {
+  constructor(
+    logger: WinstonLogger,
+    defaultChannel: LogChannel = LogChannel.SYSTEM,
+  ) {
     this.logger = logger;
     this.defaultChannel = defaultChannel;
   }
@@ -35,23 +38,25 @@ export class ConsoleShimImpl implements ConsoleShim {
   }
 
   private formatMessage(message: any, optionalParams: any[]): string {
-    let fullMessage = String(message || '');
-    
+    let fullMessage = String(message || "");
+
     if (optionalParams.length > 0) {
-      const additional = optionalParams.map(param => {
-        if (typeof param === 'object') {
-          try {
-            return JSON.stringify(param, null, 2);
-          } catch {
-            return String(param);
+      const additional = optionalParams
+        .map((param) => {
+          if (typeof param === "object") {
+            try {
+              return JSON.stringify(param, null, 2);
+            } catch {
+              return String(param);
+            }
           }
-        }
-        return String(param);
-      }).join(' ');
-      
-      fullMessage += ' ' + additional;
+          return String(param);
+        })
+        .join(" ");
+
+      fullMessage += " " + additional;
     }
-    
+
     return fullMessage;
   }
 }
@@ -59,7 +64,9 @@ export class ConsoleShimImpl implements ConsoleShim {
 /**
  * Factory function für Console Shim
  */
-export function createConsoleShim(channel: LogChannel = LogChannel.SYSTEM): ConsoleShim {
+export function createConsoleShim(
+  channel: LogChannel = LogChannel.SYSTEM,
+): ConsoleShim {
   const logger = WinstonLogger.getInstance();
   return new ConsoleShimImpl(logger, channel);
 }
@@ -67,17 +74,19 @@ export function createConsoleShim(channel: LogChannel = LogChannel.SYSTEM): Cons
 /**
  * Globaler Console Override (nur für Development empfohlen)
  */
-export function overrideGlobalConsole(channel: LogChannel = LogChannel.SYSTEM): void {
+export function overrideGlobalConsole(
+  channel: LogChannel = LogChannel.SYSTEM,
+): void {
   const shim = createConsoleShim(channel);
-  
+
   // Backup der originalen Console-Methoden
   (console as any).__original = {
     log: console.log,
     warn: console.warn,
     error: console.error,
-    info: console.info
+    info: console.info,
   };
-  
+
   // Override
   console.log = shim.log.bind(shim);
   console.warn = shim.warn.bind(shim);

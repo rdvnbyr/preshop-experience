@@ -26,6 +26,7 @@ exp-next/
 ## 🛠️ Tech Stack
 
 ### Backend (API)
+
 - **Node.js** + **Express.js** - Server framework
 - **MongoDB** + **Mongoose** - Database and ODM
 - **Winston** - Professional logging
@@ -34,6 +35,7 @@ exp-next/
 - **bcryptjs** - Password hashing
 
 ### Frontend (Client)
+
 - **Next.js 15** - React framework
 - **TypeScript** - Type safety
 - **Tailwind CSS** - Styling
@@ -41,12 +43,14 @@ exp-next/
 - **Shopware API** - E-commerce integration
 
 ### Shared Packages
+
 - **@exp-places-app/logger** - Custom logging infrastructure
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 18+ 
+
+- Node.js 18+
 - npm or yarn
 - MongoDB instance
 - Git
@@ -54,12 +58,14 @@ exp-next/
 ### Installation
 
 1. **Clone the repository**
+
 ```bash
 git clone <repository-url>
 cd exp-next
 ```
 
 2. **Install dependencies**
+
 ```bash
 npm install
 npm run install:all
@@ -70,6 +76,7 @@ npm run install:all
 Create `.env` files in both `api/` and `client/` directories:
 
 **API (.env):**
+
 ```env
 NODE_ENV=development
 PORT=4000
@@ -80,19 +87,22 @@ LOG_LEVEL=info
 ```
 
 **Client (.env.local):**
+
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:4000
 NEXT_PUBLIC_APP_ENV=development
 ```
 
 4. **Start Development**
+
 ```bash
 npm run dev
 ```
 
 This will start:
+
 - 🔧 **API Server** on `http://localhost:4000`
-- 🎨 **Client App** on `http://localhost:3000` 
+- 🎨 **Client App** on `http://localhost:3000`
 - 📊 **Logger Package** in watch mode
 
 ## � Docker Deployment
@@ -102,6 +112,7 @@ For containerized deployment, you can use Docker Compose:
 ### Quick Docker Start
 
 **Development Environment:**
+
 ```bash
 # Start all services with hot reload
 npm run docker:dev
@@ -111,6 +122,7 @@ npm run docker:dev
 ```
 
 **Production Environment:**
+
 ```bash
 # Setup environment variables
 cp .env.example .env
@@ -125,15 +137,16 @@ npm run docker:prod
 
 ### Docker Services
 
-| Service | Port | Description |
-|---------|------|-------------|
-| **nginx** | 80, 443 | Reverse proxy with SSL |
-| **client** | 3000 | Next.js frontend |
-| **api** | 4000 | Express.js backend |
-| **mongodb** | 27017 | MongoDB database |
+| Service     | Port    | Description            |
+| ----------- | ------- | ---------------------- |
+| **nginx**   | 80, 443 | Reverse proxy with SSL |
+| **client**  | 3000    | Next.js frontend       |
+| **api**     | 4000    | Express.js backend     |
+| **mongodb** | 27017   | MongoDB database       |
 
 **Access Points:**
-- **Development:** 
+
+- **Development:**
   - Client: http://localhost:3000
   - API: http://localhost:4000
 - **Production:**
@@ -145,7 +158,7 @@ npm run docker:prod
 ```bash
 # Development
 npm run docker:dev              # Start dev environment
-npm run docker:dev:stop         # Stop dev environment  
+npm run docker:dev:stop         # Stop dev environment
 npm run docker:dev:logs         # View dev logs
 npm run docker:dev:rebuild      # Rebuild containers
 
@@ -165,6 +178,7 @@ npm run docker:backup           # Create database backup
 ## �📜 Available Scripts
 
 ### Development
+
 ```bash
 npm run dev              # Start all services
 npm run dev:api          # Start API only (port 4000)
@@ -173,6 +187,7 @@ npm run dev:logger       # Start Logger package in watch mode
 ```
 
 ### Production
+
 ```bash
 npm run build            # Build all packages
 npm run build:api        # Build API
@@ -182,6 +197,7 @@ npm run start            # Start production servers
 ```
 
 ### Utilities
+
 ```bash
 npm run install:all      # Install deps in all packages
 npm run clean           # Clean all build artifacts
@@ -193,6 +209,7 @@ npm run test            # Run all tests
 The application uses a custom Winston-based logging package with structured, channel-based logging.
 
 ### Available Log Channels
+
 - **CHECKOUT** - Shopping cart and order processes
 - **PRODUCT_CATALOG** - Product browsing and search
 - **ACCOUNT** - User management and authentication
@@ -203,26 +220,28 @@ The application uses a custom Winston-based logging package with structured, cha
 ### Usage Examples
 
 ```javascript
-const { checkoutLogger, accountLogger } = require('./lib/logger');
+const { checkoutLogger, accountLogger } = require("./lib/logger");
 
 // Checkout operations
-checkoutLogger.info('Order created successfully', {
-  orderId: 'ORD-123',
-  userId: 'user-456',
+checkoutLogger.info("Order created successfully", {
+  orderId: "ORD-123",
+  userId: "user-456",
   total: 129.99,
-  items: 3
+  items: 3,
 });
 
 // Account operations
-accountLogger.warn('Failed login attempt', {
-  email: 'user@example.com',
-  ip: '192.168.1.100',
-  reason: 'Invalid password'
+accountLogger.warn("Failed login attempt", {
+  email: "user@example.com",
+  ip: "192.168.1.100",
+  reason: "Invalid password",
 });
 ```
 
 ### Log Files
+
 Logs are automatically written to:
+
 - `./api/logs/YYYY-MM-DD-combined.log` - All application logs
 - `./api/logs/YYYY-MM-DD-error.log` - Error logs only
 - `./api/logs/exceptions.log` - Uncaught exceptions
@@ -231,6 +250,7 @@ Logs are automatically written to:
 ## 🔧 API Endpoints
 
 ### Authentication
+
 ```
 POST /api/auth/login     # User login
 POST /api/auth/register  # User registration
@@ -238,6 +258,7 @@ POST /api/auth/refresh   # Refresh token
 ```
 
 ### Places
+
 ```
 GET    /api/places       # Get all places
 POST   /api/places       # Create new place
@@ -247,6 +268,7 @@ DELETE /api/places/:id   # Delete place
 ```
 
 ### Reviews
+
 ```
 GET    /api/reviews      # Get all reviews
 POST   /api/reviews      # Create review
@@ -274,6 +296,7 @@ docker run -p 4000:4000 places-api
 ```
 
 For full stack deployment with docker-compose:
+
 ```bash
 docker-compose up -d
 ```
@@ -307,6 +330,7 @@ npm run test:logger      # Test Logger package
 ## 🤝 Development Workflow
 
 1. **Feature Development**
+
    ```bash
    git checkout -b feature/new-feature
    npm run dev
@@ -317,6 +341,7 @@ npm run test:logger      # Test Logger package
    ```
 
 2. **Logger Package Updates**
+
    ```bash
    cd packages/logger
    npm run dev  # Watch mode for changes
@@ -344,19 +369,22 @@ npm run test:logger      # Test Logger package
 ## 🔧 Configuration
 
 ### Logger Configuration
+
 ```javascript
 setupLogger({
-  level: 'info',                    // Log level
-  environment: 'development',       // Environment
-  enableFileLogging: true,         // Enable file output
-  logDir: './logs',                // Log directory
-  maxFiles: '14d',                 // Retention period
-  maxSize: '20m'                   // Max file size
+  level: "info", // Log level
+  environment: "development", // Environment
+  enableFileLogging: true, // Enable file output
+  logDir: "./logs", // Log directory
+  maxFiles: "14d", // Retention period
+  maxSize: "20m", // Max file size
 });
 ```
 
 ### API Configuration
+
 Key environment variables:
+
 - `NODE_ENV` - Environment (development/production)
 - `PORT` - Server port (default: 4000)
 - `MONGODB_URI` - Database connection string
@@ -368,23 +396,27 @@ Key environment variables:
 ### Common Issues
 
 **Port already in use:**
+
 ```bash
 lsof -ti:4000 | xargs kill -9  # Kill process on port 4000
 lsof -ti:3000 | xargs kill -9  # Kill process on port 3000
 ```
 
 **MongoDB connection issues:**
+
 - Verify MongoDB is running
 - Check connection string in `.env`
 - Ensure network connectivity
 
 **Logger not working:**
+
 ```bash
 cd packages/logger
 npm run build  # Rebuild logger package
 ```
 
 **Missing dependencies:**
+
 ```bash
 npm run install:all  # Reinstall all dependencies
 ```
@@ -392,6 +424,7 @@ npm run install:all  # Reinstall all dependencies
 ### Docker Issues
 
 **Docker containers won't start:**
+
 ```bash
 # Check Docker status
 docker --version
@@ -407,6 +440,7 @@ npm run docker:dev:rebuild
 ```
 
 **Port conflicts with Docker:**
+
 ```bash
 # Check what's using Docker ports
 lsof -i :3000 :4000 :27017 :80 :443
@@ -419,6 +453,7 @@ npm run docker:cleanup
 ```
 
 **Database connection in Docker:**
+
 ```bash
 # Check MongoDB container
 docker exec -it places-app-mongodb-dev mongosh
@@ -428,6 +463,7 @@ docker network inspect places-dev-network
 ```
 
 **Out of disk space:**
+
 ```bash
 # Clean up Docker system
 docker system prune -af
@@ -452,6 +488,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 ## 📞 Support
 
 For support and questions:
+
 - Create an issue in the repository
 - Check existing documentation
 - Review log files for debugging

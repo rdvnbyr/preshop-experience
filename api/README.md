@@ -177,6 +177,7 @@ curl -X GET http://localhost:4000/api/auth/me \
 ### MongoDB Connection Error
 
 Stelle sicher, dass MongoDB läuft:
+
 ```bash
 docker-compose ps
 ```

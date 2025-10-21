@@ -1,18 +1,15 @@
 // Core Logger
-export { WinstonLogger, ChannelLoggerImpl } from './logger';
+export { WinstonLogger, ChannelLoggerImpl } from "./logger";
 
 // Types
 export type {
   LoggerConfig,
   LogMetadata,
   ChannelLogger,
-  ConsoleShim
-} from './types';
+  ConsoleShim,
+} from "./types";
 
-export {
-  LogChannel,
-  LogLevel
-} from './types';
+export { LogChannel, LogLevel } from "./types";
 
 // Channel Factory
 export {
@@ -23,24 +20,24 @@ export {
   intershopApiLogger,
   storyblokCmsLogger,
   systemLogger,
-  defaultLogger
-} from './channels';
+  defaultLogger,
+} from "./channels";
 
 // Console Shim
 export {
   ConsoleShimImpl,
   createConsoleShim,
   overrideGlobalConsole,
-  restoreGlobalConsole
-} from './console-shim';
+  restoreGlobalConsole,
+} from "./console-shim";
 
 // Transport Manager
-export { TransportManager } from './transports';
+export { TransportManager } from "./transports";
 
 // Import required types and classes for default export
-import { WinstonLogger } from './logger';
-import { ChannelFactory } from './channels';
-import type { LoggerConfig } from './types';
+import { WinstonLogger } from "./logger";
+import { ChannelFactory } from "./channels";
+import type { LoggerConfig } from "./types";
 
 // Default Export - Einfacher Zugang zur Logger-Instanz
 const logger = WinstonLogger.getInstance();

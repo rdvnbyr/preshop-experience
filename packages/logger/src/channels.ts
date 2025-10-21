@@ -1,5 +1,5 @@
-import { WinstonLogger } from './logger';
-import { LogChannel, ChannelLogger, LoggerConfig } from './types';
+import { WinstonLogger } from "./logger";
+import { LogChannel, ChannelLogger, LoggerConfig } from "./types";
 
 /**
  * Channel Factory - Erstellt vorkonfigurierte Logger für spezifische Bereiche
@@ -55,29 +55,29 @@ export class ChannelFactory {
  * Convenience Exports für direkte Channel-Nutzung
  */
 export const checkoutLogger = {
-  get: () => ChannelFactory.getCheckoutLogger()
+  get: () => ChannelFactory.getCheckoutLogger(),
 };
 
 export const productCatalogLogger = {
-  get: () => ChannelFactory.getProductCatalogLogger()
+  get: () => ChannelFactory.getProductCatalogLogger(),
 };
 
 export const accountLogger = {
-  get: () => ChannelFactory.getAccountLogger()
+  get: () => ChannelFactory.getAccountLogger(),
 };
 
 export const intershopApiLogger = {
-  get: () => ChannelFactory.getIntershopApiLogger()
+  get: () => ChannelFactory.getIntershopApiLogger(),
 };
 
 export const storyblokCmsLogger = {
-  get: () => ChannelFactory.getStoryblokCmsLogger()
+  get: () => ChannelFactory.getStoryblokCmsLogger(),
 };
 
 export const systemLogger = {
-  get: () => ChannelFactory.getSystemLogger()
+  get: () => ChannelFactory.getSystemLogger(),
 };
 
 export const defaultLogger = {
-  get: () => ChannelFactory.getDefaultLogger()
+  get: () => ChannelFactory.getDefaultLogger(),
 };

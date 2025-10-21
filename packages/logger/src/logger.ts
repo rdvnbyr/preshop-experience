@@ -1,6 +1,12 @@
-import winston from 'winston';
-import { LoggerConfig, LogChannel, LogLevel, ChannelLogger, LogMetadata } from './types';
-import { TransportManager } from './transports';
+import winston from "winston";
+import {
+  LoggerConfig,
+  LogChannel,
+  LogLevel,
+  ChannelLogger,
+  LogMetadata,
+} from "./types";
+import { TransportManager } from "./transports";
 
 export class ChannelLoggerImpl implements ChannelLogger {
   private logger: winston.Logger;
@@ -11,11 +17,14 @@ export class ChannelLoggerImpl implements ChannelLogger {
     this.channel = channel;
   }
 
-  private formatMessage(message: string, meta?: LogMetadata): [string, LogMetadata] {
+  private formatMessage(
+    message: string,
+    meta?: LogMetadata,
+  ): [string, LogMetadata] {
     const enrichedMeta: LogMetadata = {
       ...meta,
       channel: this.channel,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     };
 
     return [message, enrichedMeta];
@@ -71,14 +80,14 @@ export class WinstonLogger {
   constructor(config: LoggerConfig = {}) {
     this.config = {
       level: LogLevel.INFO,
-      environment: 'development',
+      environment: "development",
       enableFileLogging: true,
-      logDir: './logs',
-      maxFiles: '14d',
-      maxSize: '20m',
-      datePattern: 'YYYY-MM-DD',
-      format: 'detailed',
-      ...config
+      logDir: "./logs",
+      maxFiles: "14d",
+      maxSize: "20m",
+      datePattern: "YYYY-MM-DD",
+      format: "detailed",
+      ...config,
     };
 
     this.initializeLogger();
@@ -94,7 +103,7 @@ export class WinstonLogger {
 
   private initializeLogger(): void {
     const transports = TransportManager.createTransports(this.config);
-    
+
     this.winstonLogger = winston.createLogger({
       level: this.config.level,
       transports,
@@ -102,23 +111,32 @@ export class WinstonLogger {
       format: winston.format.combine(
         winston.format.timestamp(),
         winston.format.errors({ stack: true }),
-        winston.format.metadata({ fillExcept: ['message', 'level', 'timestamp'] })
-      )
+        winston.format.metadata({
+          fillExcept: ["message", "level", "timestamp"],
+        }),
+      ),
     });
 
     // Handle uncaught exceptions and unhandled rejections
     this.winstonLogger.exceptions.handle(
-      new winston.transports.File({ filename: `${this.config.logDir}/exceptions.log` })
+      new winston.transports.File({
+        filename: `${this.config.logDir}/exceptions.log`,
+      }),
     );
 
     this.winstonLogger.rejections.handle(
-      new winston.transports.File({ filename: `${this.config.logDir}/rejections.log` })
+      new winston.transports.File({
+        filename: `${this.config.logDir}/rejections.log`,
+      }),
     );
   }
 
   private initializeChannels(): void {
-    Object.values(LogChannel).forEach(channel => {
-      this.channels.set(channel, new ChannelLoggerImpl(this.winstonLogger, channel));
+    Object.values(LogChannel).forEach((channel) => {
+      this.channels.set(
+        channel,
+        new ChannelLoggerImpl(this.winstonLogger, channel),
+      );
     });
   }
 

@@ -11,8 +11,8 @@ class SentryTransport extends Transport {
         info instanceof Error
           ? info
           : info.error instanceof Error
-          ? info.error
-          : new Error(info.message);
+            ? info.error
+            : new Error(info.message);
       Sentry.captureException(err, {
         level: info.level,
         tags: { channel: info.channel || "system" },

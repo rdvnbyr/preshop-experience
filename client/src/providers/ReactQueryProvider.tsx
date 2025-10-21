@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { useState } from 'react';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { useState } from "react";
 
 export default function ReactQueryProvider({
   children,
@@ -18,7 +18,7 @@ export default function ReactQueryProvider({
             retry: 1,
           },
         },
-      })
+      }),
   );
 
   return (

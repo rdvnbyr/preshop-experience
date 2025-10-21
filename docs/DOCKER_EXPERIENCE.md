@@ -1,17 +1,20 @@
 # Docker Experience Guide - ExpNext Monorepo
 
 ## Überblick
+
 Dieses Dokument enthält alle Docker-Befehle und -Konzepte, die wir in diesem Monorepo-Projekt verwendet haben. Es dient als Lernressource und Referenz für die Docker-Verwaltung.
 
 ## Grundlegende Docker-Konzepte
 
 ### Images vs. Container
+
 - **Image**: Ein unveränderliches Template für Container (wie ein Bauplan)
 - **Container**: Eine laufende Instanz eines Images (wie ein gebautes Haus)
 
 ## Docker Compose Befehle
 
 ### Projekt starten
+
 ```bash
 # Alle Services im Hintergrund starten
 docker-compose -f docker-compose.dev.yml up -d
@@ -23,11 +26,13 @@ docker-compose -f docker-compose.dev.yml up -d client-dev
 ```
 
 **Erklärung:**
+
 - `-f`: Spezifiziert die Compose-Datei
 - `up`: Startet Services
 - `-d`: Detached mode (läuft im Hintergrund)
 
 ### Services anzeigen
+
 ```bash
 # Status aller Services anzeigen
 docker-compose -f docker-compose.dev.yml ps
@@ -37,6 +42,7 @@ docker-compose -f docker-compose.dev.yml ps -a
 ```
 
 ### Services stoppen
+
 ```bash
 # Alle Services stoppen
 docker-compose -f docker-compose.dev.yml down
@@ -49,6 +55,7 @@ docker-compose -f docker-compose.dev.yml down client-dev
 ```
 
 ### Services neu starten
+
 ```bash
 # Service neu starten
 docker-compose -f docker-compose.dev.yml restart api-dev
@@ -61,6 +68,7 @@ docker-compose -f docker-compose.dev.yml start api-dev
 ## Docker Build Befehle
 
 ### Images erstellen
+
 ```bash
 # Alle Services neu bauen
 docker-compose -f docker-compose.dev.yml build
@@ -73,12 +81,14 @@ docker-compose -f docker-compose.dev.yml build --no-cache client-dev
 ```
 
 **Wann verwenden:**
+
 - `build`: Wenn sich Code geändert hat
 - `--no-cache`: Bei Dependency-Problemen oder kompletten Neubau
 
 ## Container-Verwaltung
 
 ### Container-Logs anzeigen
+
 ```bash
 # Logs eines Containers anzeigen
 docker logs places-app-api-dev
@@ -96,6 +106,7 @@ docker logs -t places-app-mongodb-dev
 **Praxis-Tipp:** Live-Logs (`-f`) sind sehr nützlich für Debugging!
 
 ### In Container einsteigen
+
 ```bash
 # Shell im Container öffnen
 docker exec -it places-app-client-dev sh
@@ -108,11 +119,13 @@ docker exec places-app-client-dev npm --version
 ```
 
 **Erklärung:**
+
 - `exec`: Führt Befehl in laufendem Container aus
 - `-it`: Interaktiver Terminal
 - `sh/bash`: Shell-Typ
 
 ### Container-Informationen
+
 ```bash
 # Container-Details anzeigen
 docker inspect places-app-api-dev
@@ -127,6 +140,7 @@ docker stats places-app-api-dev
 ## System-Verwaltung
 
 ### Docker-System aufräumen
+
 ```bash
 # Unbenutzte Container, Netzwerke, Images entfernen
 docker system prune
@@ -144,6 +158,7 @@ docker container prune
 **Warnung:** `-a --volumes` löscht ALLES! Vorsichtig verwenden.
 
 ### Speicherplatz analysieren
+
 ```bash
 # Docker-Speicherverbrauch anzeigen
 docker system df
@@ -155,6 +170,7 @@ docker system df -v
 ## Environment-spezifische Befehle
 
 ### Development Environment
+
 ```bash
 # Komplettes Dev-Setup starten
 docker-compose -f docker-compose.dev.yml up -d
@@ -166,6 +182,7 @@ docker-compose -f docker-compose.dev.yml up client-dev
 ```
 
 ### Container-Environment-Variablen prüfen
+
 ```bash
 # Alle Environment-Variablen anzeigen
 docker exec places-app-api-dev printenv
@@ -178,6 +195,7 @@ docker exec places-app-api-dev env | grep MONGO
 ## Debugging-Strategien
 
 ### Problem: Container startet nicht
+
 ```bash
 # 1. Logs prüfen
 docker logs places-app-api-dev
@@ -193,6 +211,7 @@ docker-compose -f docker-compose.dev.yml up -d api-dev
 ```
 
 ### Problem: Dependency-Fehler
+
 ```bash
 # 1. In Container einsteigen
 docker exec -it places-app-client-dev sh
@@ -208,6 +227,7 @@ docker restart places-app-client-dev
 ```
 
 ### Problem: Port-Konflikte
+
 ```bash
 # Ports prüfen, die verwendet werden
 docker-compose -f docker-compose.dev.yml ps
@@ -218,6 +238,7 @@ lsof -i :4000
 ## Häufige Probleme und Lösungen
 
 ### 1. ARM64/x86 Kompatibilitätsprobleme
+
 ```bash
 # Problem: Native Dependencies funktionieren nicht
 # Lösung: Platform spezifizieren
@@ -226,6 +247,7 @@ lsof -i :4000
 ```
 
 ### 2. Tailwind CSS Binary-Probleme
+
 ```bash
 # Problem: @tailwindcss/oxide Binary fehlt
 # Lösung 1: Node.js Version ändern (20 → 22)
@@ -233,6 +255,7 @@ lsof -i :4000
 ```
 
 ### 3. MongoDB Connection-Probleme
+
 ```bash
 # Problem: MONGO_URI vs MONGODB_URI
 # Lösung: Environment-Variablen Namen vereinheitlichen
@@ -242,6 +265,7 @@ docker exec places-app-api-dev printenv | grep MONGO
 ```
 
 ### 4. Logger Package Import-Probleme
+
 ```bash
 # Problem: Cannot find module '@exp-places-app/logger'
 # Lösung: Logger package in Container-Build-Prozess einbinden
@@ -256,6 +280,7 @@ docker-compose -f docker-compose.dev.yml build --no-cache api-dev
 ## Performance-Optimierung
 
 ### Multi-Stage Builds verwenden
+
 ```dockerfile
 # Beispiel aus unserem API Dockerfile:
 FROM node:20-alpine
@@ -268,16 +293,18 @@ RUN npm install
 ```
 
 ### Volumes für Entwicklung
+
 ```yaml
 # In docker-compose.dev.yml:
 volumes:
-  - api_dev_logs:/app/logs  # Logs persistent halten
-  - mongodb_dev_data:/data/db  # Datenbank persistent halten
+  - api_dev_logs:/app/logs # Logs persistent halten
+  - mongodb_dev_data:/data/db # Datenbank persistent halten
 ```
 
 ## Monitoring und Health Checks
 
 ### Health Checks implementieren
+
 ```bash
 # API Health Check testen
 curl http://localhost:4000/api/health
@@ -287,6 +314,7 @@ docker inspect places-app-api-dev | grep Health -A 10
 ```
 
 ### Resource Monitoring
+
 ```bash
 # Real-time Resource Usage
 docker stats
@@ -301,20 +329,24 @@ docker exec places-app-api-dev cat /proc/meminfo
 ## Best Practices aus diesem Projekt
 
 ### 1. Development vs Production
+
 - Separate Dockerfiles: `Dockerfile.dev` vs `Dockerfile`
 - Separate Compose-Dateien: `docker-compose.dev.yml` vs `docker-compose.yml`
 
 ### 2. Monorepo-Struktur
+
 - Logger Package zuerst bauen
 - Packages als Dependencies in Container kopieren
 - Workspace-Structure respektieren
 
 ### 3. Debugging-freundlich
+
 - Live-Logs verwenden: `docker logs -f`
 - Interactive Shells: `docker exec -it`
 - Environment-Variablen prüfbar machen
 
 ### 4. Saubere Entwicklung
+
 - Regelmäßig `docker system prune`
 - `--no-cache` bei Problemen verwenden
 - Ein Service nach dem anderen debuggen

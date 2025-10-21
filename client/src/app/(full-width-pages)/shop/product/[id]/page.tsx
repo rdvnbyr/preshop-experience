@@ -1,4 +1,4 @@
-import ProductDetailPage from '@/components/shop/pages/ProductDetailPage';
+import ProductDetailPage from "@/components/shop/pages/ProductDetailPage";
 
 interface ProductPageProps {
   params: {

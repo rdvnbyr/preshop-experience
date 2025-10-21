@@ -1,32 +1,32 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { useProducts } from '@/hooks/useShopware';
-import ProductCard from '../products/ProductCard';
-import ProductsLoading from '../products/ProductsLoading';
-import Button from '@/components/ui/button/Button';
+import React, { useState, useEffect } from "react";
+import { useProducts } from "@/hooks/useShopware";
+import ProductCard from "../products/ProductCard";
+import ProductsLoading from "../products/ProductsLoading";
+import Button from "@/components/ui/button/Button";
 
 interface SearchPageProps {
   initialQuery?: string;
 }
 
-const SearchPage: React.FC<SearchPageProps> = ({ initialQuery = '' }) => {
+const SearchPage: React.FC<SearchPageProps> = ({ initialQuery = "" }) => {
   const [searchTerm, setSearchTerm] = useState<string>(initialQuery);
   const [query, setQuery] = useState<string>(initialQuery);
-  const [sortBy, setSortBy] = useState<string>('name');
+  const [sortBy, setSortBy] = useState<string>("name");
   const [limit, setLimit] = useState<number>(12);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   // Fetch products based on search
-  const { 
-    data: productsData, 
-    isLoading: productsLoading, 
-    error: productsError 
+  const {
+    data: productsData,
+    isLoading: productsLoading,
+    error: productsError,
   } = useProducts({
     page: currentPage,
     limit,
     sort: sortBy,
-    search: query
+    search: query,
   });
 
   // Update search term when initialQuery changes
@@ -55,7 +55,7 @@ const SearchPage: React.FC<SearchPageProps> = ({ initialQuery = '' }) => {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -85,8 +85,18 @@ const SearchPage: React.FC<SearchPageProps> = ({ initialQuery = '' }) => {
                 />
               </div>
               <Button type="submit" variant="primary" size="md">
-                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                <svg
+                  className="w-5 h-5 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
                 </svg>
                 Search
               </Button>
@@ -117,7 +127,10 @@ const SearchPage: React.FC<SearchPageProps> = ({ initialQuery = '' }) => {
             <div className="flex flex-col sm:flex-row gap-4">
               {/* Sort By */}
               <div className="flex items-center gap-2">
-                <label htmlFor="sort" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label
+                  htmlFor="sort"
+                  className="text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
                   Sort by:
                 </label>
                 <select
@@ -137,7 +150,10 @@ const SearchPage: React.FC<SearchPageProps> = ({ initialQuery = '' }) => {
 
               {/* Items per page */}
               <div className="flex items-center gap-2">
-                <label htmlFor="limit" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label
+                  htmlFor="limit"
+                  className="text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
                   Show:
                 </label>
                 <select
@@ -168,8 +184,18 @@ const SearchPage: React.FC<SearchPageProps> = ({ initialQuery = '' }) => {
         {!query ? (
           <div className="text-center py-12">
             <div className="max-w-md mx-auto">
-              <svg className="mx-auto h-16 w-16 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M16.65 11a5.65 5.65 0 11-11.3 0 5.65 5.65 0 0111.3 0z" />
+              <svg
+                className="mx-auto h-16 w-16 text-gray-400 mb-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-4.35-4.35M16.65 11a5.65 5.65 0 11-11.3 0 5.65 5.65 0 0111.3 0z"
+                />
               </svg>
               <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
                 Start your search
@@ -190,14 +216,25 @@ const SearchPage: React.FC<SearchPageProps> = ({ initialQuery = '' }) => {
         ) : !productsData?.data?.length ? (
           <div className="text-center py-12">
             <div className="max-w-md mx-auto">
-              <svg className="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M16.65 11a5.65 5.65 0 11-11.3 0 5.65 5.65 0 0111.3 0z" />
+              <svg
+                className="mx-auto h-12 w-12 text-gray-400 mb-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-4.35-4.35M16.65 11a5.65 5.65 0 11-11.3 0 5.65 5.65 0 0111.3 0z"
+                />
               </svg>
               <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
                 No products found
               </h3>
               <p className="text-gray-500 dark:text-gray-400">
-                No products found for &quot;{query}&quot;. Try adjusting your search or using different keywords.
+                No products found for &quot;{query}&quot;. Try adjusting your
+                search or using different keywords.
               </p>
             </div>
           </div>
@@ -214,9 +251,11 @@ const SearchPage: React.FC<SearchPageProps> = ({ initialQuery = '' }) => {
             {productsData?.meta && productsData.meta.total > limit && (
               <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
                 <div className="text-sm text-gray-600 dark:text-gray-400">
-                  Showing {((currentPage - 1) * limit) + 1} to {Math.min(currentPage * limit, productsData.meta.total)} of {productsData.meta.total} results
+                  Showing {(currentPage - 1) * limit + 1} to{" "}
+                  {Math.min(currentPage * limit, productsData.meta.total)} of{" "}
+                  {productsData.meta.total} results
                 </div>
-                
+
                 <div className="flex items-center gap-2">
                   {/* Previous Button */}
                   <Button
@@ -231,11 +270,18 @@ const SearchPage: React.FC<SearchPageProps> = ({ initialQuery = '' }) => {
                   {/* Page Numbers */}
                   <div className="flex items-center gap-1">
                     {Array.from(
-                      { length: Math.min(5, Math.ceil(productsData.meta.total / limit)) },
+                      {
+                        length: Math.min(
+                          5,
+                          Math.ceil(productsData.meta.total / limit),
+                        ),
+                      },
                       (_, index) => {
-                        const totalPages = Math.ceil(productsData.meta.total / limit);
+                        const totalPages = Math.ceil(
+                          productsData.meta.total / limit,
+                        );
                         let pageNumber;
-                        
+
                         if (totalPages <= 5) {
                           pageNumber = index + 1;
                         } else if (currentPage <= 3) {
@@ -250,21 +296,25 @@ const SearchPage: React.FC<SearchPageProps> = ({ initialQuery = '' }) => {
                           <Button
                             key={pageNumber}
                             onClick={() => handlePageChange(pageNumber)}
-                            variant={currentPage === pageNumber ? 'primary' : 'outline'}
+                            variant={
+                              currentPage === pageNumber ? "primary" : "outline"
+                            }
                             size="sm"
                             className="min-w-[40px]"
                           >
                             {pageNumber}
                           </Button>
                         );
-                      }
+                      },
                     )}
                   </div>
 
                   {/* Next Button */}
                   <Button
                     onClick={() => handlePageChange(currentPage + 1)}
-                    disabled={currentPage >= Math.ceil(productsData.meta.total / limit)}
+                    disabled={
+                      currentPage >= Math.ceil(productsData.meta.total / limit)
+                    }
                     variant="outline"
                     size="sm"
                   >

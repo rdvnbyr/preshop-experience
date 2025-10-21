@@ -70,7 +70,7 @@ const placeSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 // Create geospatial index for location-based queries

@@ -39,11 +39,13 @@
 ## Authorization Rules
 
 ### Place Updates/Deletes
+
 - **Creator** can update/delete their own places
 - **Admin** can update/delete any place
 - **SuperUser** can update/delete any place
 
 ### Review Updates/Deletes
+
 - **Creator** can update/delete their own reviews
 - **Admin** can update/delete any review
 - **SuperUser** can update/delete any review
@@ -51,20 +53,24 @@
 ## Place Endpoints
 
 ### Get All Places
+
 **GET** `/api/places`
 
 **Query Parameters:**
+
 - `tags` - Filter by tags (comma-separated)
 - `minRating` - Minimum average rating
 - `limit` - Results per page (default: 20)
 - `page` - Page number (default: 1)
 
 **Example:**
+
 ```bash
 GET /api/places?tags=restaurant,cafe&minRating=4&limit=10&page=1
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -101,9 +107,11 @@ GET /api/places?tags=restaurant,cafe&minRating=4&limit=10&page=1
 ```
 
 ### Get Single Place
+
 **GET** `/api/places/:id`
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -126,14 +134,17 @@ GET /api/places?tags=restaurant,cafe&minRating=4&limit=10&page=1
 ```
 
 ### Create Place
+
 **POST** `/api/places`
 
 **Headers:**
+
 ```
 Authorization: Bearer <token>
 ```
 
 **Body:**
+
 ```json
 {
   "title": "Beautiful Park",
@@ -150,6 +161,7 @@ Authorization: Bearer <token>
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -162,9 +174,11 @@ Authorization: Bearer <token>
 ```
 
 ### Update Place
+
 **PUT** `/api/places/:id`
 
 **Headers:**
+
 ```
 Authorization: Bearer <token>
 ```
@@ -174,9 +188,11 @@ Authorization: Bearer <token>
 **Body:** Same as Create Place
 
 ### Delete Place
+
 **DELETE** `/api/places/:id`
 
 **Headers:**
+
 ```
 Authorization: Bearer <token>
 ```
@@ -184,6 +200,7 @@ Authorization: Bearer <token>
 **Authorization:** Creator, Admin, or SuperUser only
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -193,17 +210,21 @@ Authorization: Bearer <token>
 ```
 
 ### Get Nearby Places
+
 **GET** `/api/places/nearby/:longitude/:latitude`
 
 **Query Parameters:**
+
 - `maxDistance` - Maximum distance in meters (default: 10000)
 
 **Example:**
+
 ```bash
 GET /api/places/nearby/13.405/52.52?maxDistance=5000
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -222,9 +243,11 @@ GET /api/places/nearby/13.405/52.52?maxDistance=5000
 ## Review Endpoints
 
 ### Get Reviews for a Place
+
 **GET** `/api/places/:placeId/reviews`
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -248,14 +271,17 @@ GET /api/places/nearby/13.405/52.52?maxDistance=5000
 ```
 
 ### Create Review
+
 **POST** `/api/places/:placeId/reviews`
 
 **Headers:**
+
 ```
 Authorization: Bearer <token>
 ```
 
 **Body:**
+
 ```json
 {
   "rating": 5,
@@ -264,6 +290,7 @@ Authorization: Bearer <token>
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -282,14 +309,17 @@ Authorization: Bearer <token>
 **Note:** Users can only create one review per place.
 
 ### Get My Reviews
+
 **GET** `/api/reviews/my-reviews`
 
 **Headers:**
+
 ```
 Authorization: Bearer <token>
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -312,9 +342,11 @@ Authorization: Bearer <token>
 ```
 
 ### Update Review
+
 **PUT** `/api/reviews/:id`
 
 **Headers:**
+
 ```
 Authorization: Bearer <token>
 ```
@@ -322,6 +354,7 @@ Authorization: Bearer <token>
 **Authorization:** Review creator, Admin, or SuperUser only
 
 **Body:**
+
 ```json
 {
   "rating": 4,
@@ -330,9 +363,11 @@ Authorization: Bearer <token>
 ```
 
 ### Delete Review
+
 **DELETE** `/api/reviews/:id`
 
 **Headers:**
+
 ```
 Authorization: Bearer <token>
 ```
@@ -340,6 +375,7 @@ Authorization: Bearer <token>
 **Authorization:** Review creator, Admin, or SuperUser only
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -351,17 +387,20 @@ Authorization: Bearer <token>
 ## User Roles
 
 ### user (default)
+
 - Can create places
 - Can create reviews
 - Can update/delete own places
 - Can update/delete own reviews
 
 ### admin
+
 - All user permissions
 - Can update/delete any place
 - Can update/delete any review
 
 ### superUser
+
 - All admin permissions
 - Highest level of access
 

@@ -1,7 +1,7 @@
-import React from 'react';
-import { useQuery } from '@tanstack/react-query';
-import shopwareApi from '../services/shopware';
-import { ShopwareListResponse, ShopwareCategory } from '../types/shopware';
+import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import shopwareApi from "../services/shopware";
+import { ShopwareListResponse, ShopwareCategory } from "../types/shopware";
 
 export interface CategoryItem {
   id: string;
@@ -35,7 +35,7 @@ export interface CategoryResponse {
  */
 export const useCategories = () => {
   return useQuery<ShopwareListResponse<ShopwareCategory>>({
-    queryKey: ['categories'],
+    queryKey: ["categories"],
     queryFn: async () => {
       const response = await shopwareApi.getCategories();
       return response;
@@ -54,8 +54,13 @@ export const useNavigation = () => {
     if (!categories?.data) return [];
 
     // Build hierarchical structure
-    const categoryMap = new Map<string, ShopwareCategory & { children: ShopwareCategory[] }>();
-    const rootCategories: (ShopwareCategory & { children: ShopwareCategory[] })[] = [];
+    const categoryMap = new Map<
+      string,
+      ShopwareCategory & { children: ShopwareCategory[] }
+    >();
+    const rootCategories: (ShopwareCategory & {
+      children: ShopwareCategory[];
+    })[] = [];
 
     // First pass: create all category nodes
     categories.data.forEach((category: ShopwareCategory) => {
@@ -65,7 +70,7 @@ export const useNavigation = () => {
     // Second pass: build hierarchy
     categories.data.forEach((category: ShopwareCategory) => {
       const categoryNode = categoryMap.get(category.id)!;
-      
+
       if (category.parent?.id) {
         const parent = categoryMap.get(category.parent.id);
         if (parent) {
@@ -90,7 +95,7 @@ export const useNavigation = () => {
  */
 export const useCategory = (categoryId: string) => {
   return useQuery<ShopwareCategory>({
-    queryKey: ['category', categoryId],
+    queryKey: ["category", categoryId],
     queryFn: async () => {
       const response = await shopwareApi.getCategory(categoryId);
       return response.data;

@@ -18,19 +18,19 @@ const connectDB = require("./config/database");
 const { randomUUID } = require("node:crypto");
 
 // Initialize Logger
-const { 
-  setupLogger, 
-  overrideGlobalConsole, 
+const {
+  setupLogger,
+  overrideGlobalConsole,
   systemLogger,
-  LogLevel
+  LogLevel,
 } = require("@exp-places-app/logger");
 
 // Setup logger configuration
 setupLogger({
   level: process.env.LOG_LEVEL || LogLevel.INFO,
-  environment: process.env.NODE_ENV || 'development',
+  environment: process.env.NODE_ENV || "development",
   enableFileLogging: true,
-  logDir: './logs'
+  logDir: "./logs",
 });
 
 // Override console for seamless migration
@@ -68,13 +68,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Health check endpoint
-app.get('/health', (req, res) => {
+app.get("/health", (req, res) => {
   res.status(200).json({
-    status: 'healthy',
+    status: "healthy",
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
     memory: process.memoryUsage(),
-    environment: process.env.NODE_ENV || 'development'
+    environment: process.env.NODE_ENV || "development",
   });
 });
 
@@ -115,10 +115,10 @@ app.use((err, req, res, next) => {
 // Start server
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
-  systemLogger.get().info('Server started successfully', { 
-    port: PORT, 
-    environment: process.env.NODE_ENV || 'development',
-    nodeVersion: process.version
+  systemLogger.get().info("Server started successfully", {
+    port: PORT,
+    environment: process.env.NODE_ENV || "development",
+    nodeVersion: process.version,
   });
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
 });

@@ -1,4 +1,4 @@
-import CheckoutPage from '@/components/shop/pages/CheckoutPage';
+import CheckoutPage from "@/components/shop/pages/CheckoutPage";
 
 export default function ShopCheckoutPage() {
   return <CheckoutPage />;
